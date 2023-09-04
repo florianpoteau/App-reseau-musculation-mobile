@@ -25,13 +25,13 @@ ___
 ## *Installation du projet*
 ### *Commandes à utiliser pour installer le projet sur une machine*
 
-Le projet est réparti en trois dépôts :
+*Le projet est réparti en trois dépôts :*
 
-1. Le premier est dédié au front-end.
+#### 1. Le premier est dédié au front-end.
 
-2. Le second concerne le back-end.
+#### 2. Le second concerne le back-end et l'api.
 
-3. Le dernier est réservé à l'API.
+#### 3. Le dernier est l'application RenconSport en Flutter.
 
 ```
 git clone https://github.com/florianpoteau/App-reseau-musculation-web-front.git
@@ -42,7 +42,7 @@ git clone https://github.com/florianpoteau/App-reseau-musculation-web-back.git
 ```
 git clone https://github.com/florianpoteau/App-reseau-musculation-mobile.git
 ```
-
+### Actuellement, ceci est le repo de l'application mobile RenconSport. C'est ici que le front-end interagit avec le back-end de l'application ainsi qu'avec l'API du repo.
 
 ___
 ### *Pour le suivie du projet*
