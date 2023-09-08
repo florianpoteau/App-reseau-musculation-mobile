@@ -49,6 +49,9 @@ ___
 ***Assurez-vous de demander les permissions auprès de l'un des contributeurs de l'équipe au besoin.***
 
 <a href="https://trello.com/invite/b/8Pvpi2sT/ATTIa21460970f516a9e8382d4b676f2a56c7404449A/projet-renconsport"><img src="https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white"></img></a>
+
+<a href="https://www.figma.com/file/qsfJSnvCEvlUKIKVN5CNrB/Untitled?type=design&node-id=0-1&mode=design&t=6T8jAOYW71MN1PMV-0"><img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"></img></a> **Wireframe et maquette : la conception et création visuelle du site web** 
+
 ___
 ### *Contributeur.ices*
 ___
@@ -61,10 +64,6 @@ ___
 
 <a href="https://github.com/florianpoteau"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></img></a>
 <a href="https://www.linkedin.com/in/florian-poteau-63a9a71a1/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></img></a> 
-
--***Fabien***
-
-<a href="https://github.com/FabienFattore"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></img></a>
 
 
 -***Marc-Antoine***
