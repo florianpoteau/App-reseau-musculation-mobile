@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/services/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,9 +19,15 @@ class _HomePageState extends State<HomePage> {
             child: Container(
           width: MediaQuery.of(context).size.width,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [Text("HELLO")],
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                color: CustomTheme.Colororange,
+                child: Image.asset("assets/logo.png"),
+              )
+            ],
           ),
         )));
   }
