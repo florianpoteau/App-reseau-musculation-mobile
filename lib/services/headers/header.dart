@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 
 class Header {
-  final String authToken;
-  final Dio _dio = Dio();
+  final Dio _dio;
 
-  Header(this.authToken) {
-    _dio.options.headers['Authorization'] = authToken;
+  Header(Object authToken) : _dio = Dio() {
+    final hi = _dio.options.headers['Authorization'] = 'Bearer $authToken';
   }
 }

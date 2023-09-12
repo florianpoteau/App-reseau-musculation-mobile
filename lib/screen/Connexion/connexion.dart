@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/session.dart';
 import 'package:renconsport/screen/Connexion/button.dart';
 import 'package:renconsport/screen/Connexion/inputTexte.dart';
@@ -16,7 +19,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  Future<dynamic>? _futureTokens;
+  Future<Token>? _futureTokens;
+  final storage = new FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Homepage()));
+                                          builder: (context) => HomepageH()));
                                 }
                               } catch (e) {
                                 print(e);

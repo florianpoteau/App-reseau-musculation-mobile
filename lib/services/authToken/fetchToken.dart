@@ -1,12 +1,36 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:renconsport/models/session.dart';
-import 'package:renconsport/services/authToken/authService.dart';
+import 'package:renconsport/services/headers/header.dart';
 
 class Service {
-  static Future fetchToken(email, password) async {
-    AuthService authService = AuthService();
-    final response = await authService.getToken(email, password);
-    return response;
+  static Future<Token> fetchToken(email, password) async {
+    final Dio dio = Dio();
+
+    final Map<String, dynamic> authData = {
+      'username': email,
+      'password': password,
+    };
+
+    try {
+      final response = await dio.post(
+        'http://192.168.0.106:8000/api/login_check',
+        data: authData,
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = response.data;
+
+        final Token token = Token.fromJson(responseData);
+
+        print(token.token);
+        final Header header = Header(token);
+
+        return token;
+      } else {
+        throw Exception('Echec de chargement du token');
+      }
+    } catch (error) {
+      throw Exception('Erreur lors de la requête HTTP : $error');
+    }
   }
 }
