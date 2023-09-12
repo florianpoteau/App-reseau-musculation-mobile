@@ -4,6 +4,7 @@ import 'package:renconsport/screen/Connexion/button.dart';
 import 'package:renconsport/screen/Connexion/inputTexte.dart';
 import 'package:renconsport/services/authToken/fetchToken.dart';
 import 'package:renconsport/services/theme.dart';
+import 'package:renconsport/screen/Homepage/homepage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -54,14 +55,25 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               setState(() {
                                 String email = emailController.text;
                                 String password = passwordController.text;
-                                // Démarrez la requête pour obtenir le token
+
                                 _futureTokens =
                                     Service.fetchToken(email, password);
                               });
+                              try {
+                                final tokens = await _futureTokens;
+                                if (tokens != null) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Homepage()));
+                                }
+                              } catch (e) {
+                                print(e);
+                              }
                             },
                             child: Text("Se connecter"),
                           ),
