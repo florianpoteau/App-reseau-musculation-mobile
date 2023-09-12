@@ -6,15 +6,18 @@ class InputTexte extends StatelessWidget {
       {super.key,
       required this.icon,
       required this.text,
-      required this.controller});
+      required this.controller,
+      required this.showPassword});
 
   final IconData icon;
   final String text;
+  final bool showPassword;
   final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: showPassword,
       controller: controller,
       decoration: InputDecoration(
         labelText: text,

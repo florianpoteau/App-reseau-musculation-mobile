@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/session.dart';
 import 'package:renconsport/services/headers/header.dart';
 
 class Service {
   static Future<Token> fetchToken(email, password) async {
     final Dio dio = Dio();
+    final storage = new FlutterSecureStorage();
 
     final Map<String, dynamic> authData = {
       'username': email,
@@ -22,8 +24,11 @@ class Service {
 
         final Token token = Token.fromJson(responseData);
 
-        print(token.token);
-        final Header header = Header(token);
+        final Header header = Header();
+        header.setAuthToken(token.token);
+        await storage.write(key: 'token', value: token.token);
+        final value = await storage.read(key: 'token');
+        print(value);
 
         return token;
       } else {

@@ -17,9 +17,10 @@ class CustomTheme {
         elevation: 0,
       ),
       textTheme: TextTheme(
-        bodyMedium: TextStyle(color: Colors.white),
+        bodyMedium: TextStyle(color: Colors.black),
       ),
       primaryColor: Colorblue,
+      primaryColorDark: Colororange,
     );
   }
 }

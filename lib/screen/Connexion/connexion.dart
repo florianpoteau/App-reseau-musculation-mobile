@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/session.dart';
-import 'package:renconsport/screen/Connexion/button.dart';
 import 'package:renconsport/screen/Connexion/inputTexte.dart';
 import 'package:renconsport/services/authToken/fetchToken.dart';
 import 'package:renconsport/services/theme.dart';
@@ -47,12 +46,14 @@ class _HomePageState extends State<HomePage> {
                         icon: Icons.person,
                         text: '"Entrez votre email / pseudo"',
                         controller: emailController,
+                        showPassword: false,
                       ),
                       SizedBox(height: 16),
                       InputTexte(
                         icon: Icons.lock,
                         text: "Entrez votre mdp",
                         controller: passwordController,
+                        showPassword: true,
                       ),
                       SizedBox(height: 38),
                       Row(
@@ -79,13 +80,47 @@ class _HomePageState extends State<HomePage> {
                                 print(e);
                               }
                             },
-                            child: Text("Se connecter"),
+                            child: Padding(
+                              padding: EdgeInsets.all(15.0),
+                              child: Text(
+                                "Se connecter",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                )),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white)),
                           ),
-                          Button(
-                            text: "S'inscrire",
-                          )
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Padding(
+                              padding: EdgeInsets.all(15.0),
+                              child: Text(
+                                "S'inscrire",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                )),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white)),
+                          ),
                         ],
-                      )
+                      ),
+                      SizedBox(height: 80),
+                      Text(
+                        "Version Beta",
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ],
                   ),
                 ),
