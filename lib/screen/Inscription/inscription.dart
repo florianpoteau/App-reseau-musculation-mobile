@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/models/user.dart';
 import 'package:renconsport/screen/Connexion/connexion.dart';
 import 'package:renconsport/screen/widget/bouton.dart';
 import 'package:renconsport/screen/widget/inputTexte.dart';
+import 'package:renconsport/services/AuthRegister/authRegister.dart';
 import 'package:renconsport/services/theme.dart';
 
 class Inscription extends StatefulWidget {
@@ -17,6 +19,9 @@ class _InscriptionState extends State<Inscription> {
   TextEditingController firstPasswordController = TextEditingController();
   TextEditingController secondPasswordController = TextEditingController();
   TextEditingController ageController = TextEditingController();
+
+  Future<User>? _futureUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,57 +85,70 @@ class _InscriptionState extends State<Inscription> {
                       ),
                       SizedBox(height: 25),
                       InputTexte(
-                          icon: Icons.calendar_month,
-                          text: "Entrez votre age",
-                          controller: ageController,
-                          showPassword: false,
-                          colorInput: Colors.white,
-                          colorTexte: Colors.black,
-                          type: TextInputType.number),
+                        icon: Icons.calendar_month,
+                        text: "Entrez votre age",
+                        controller: ageController,
+                        showPassword: false,
+                        colorInput: Colors.white,
+                        colorTexte: Colors.black,
+                        type: TextInputType.number,
+                      ),
                       SizedBox(height: 40),
                       Button(
                         onPressed: () async {
-                          String pseudo = pseudoController.text;
-                          String email = emailController.text;
-                          String firstPassword = firstPasswordController.text;
-                          String secondPassword = secondPasswordController.text;
+                          setState(() {
+                            String pseudo = pseudoController.text;
+                            String email = emailController.text;
+                            String firstPassword = firstPasswordController.text;
+                            String secondPassword =
+                                secondPasswordController.text;
+                            int age = int.parse(ageController.text);
+
+                            if (firstPassword == secondPassword) {
+                              _futureUser = AuthRegister.postUser(
+                                  pseudo, email, firstPassword, age);
+                            }
+                          });
 
                           // Mot de passe qui corresponde:
-                          if (firstPassword == secondPassword) {
-                            try {
+
+                          try {
+                            final user = await _futureUser;
+                            if (user != null) {
+                              // La requête d'inscription a réussi, naviguez vers la page de connexion
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: ((context) => Connexion())),
+                                  builder: (context) => Connexion(),
+                                ),
                               );
-                            } catch (e) {
-                              print(e);
-                            }
-                          } else {
-                            // mots de passe qui corresponde pas:
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text(
-                                    'Erreur',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  content: Text(
-                                    'Les mots de passe ne correspondent pas.',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('OK'),
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Erreur',
+                                      style: TextStyle(color: Colors.black),
                                     ),
-                                  ],
-                                );
-                              },
-                            );
+                                    content: Text(
+                                      'Les mots de passe ne correspondent pas.',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          } catch (e) {
+                            print(e);
                           }
                         },
                         texte: "Inscription",

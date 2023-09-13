@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/session.dart';
+import 'package:renconsport/screen/Messagerie/messagerie.dart';
 import 'package:renconsport/screen/widget/bouton.dart';
 import 'package:renconsport/screen/widget/inputTexte.dart';
 import 'package:renconsport/screen/Inscription/inscription.dart';
@@ -81,7 +82,7 @@ class _HomePageState extends State<Connexion> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => HomepageH()));
+                                          builder: (context) => Messagerie()));
                                 }
                               } catch (e) {
                                 print(e);
