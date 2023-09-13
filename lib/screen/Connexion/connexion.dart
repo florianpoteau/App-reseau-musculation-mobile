@@ -3,19 +3,21 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/session.dart';
-import 'package:renconsport/screen/Connexion/inputTexte.dart';
+import 'package:renconsport/screen/widget/bouton.dart';
+import 'package:renconsport/screen/widget/inputTexte.dart';
+import 'package:renconsport/screen/Inscription/inscription.dart';
 import 'package:renconsport/services/authToken/fetchToken.dart';
 import 'package:renconsport/services/theme.dart';
 import 'package:renconsport/screen/Homepage/homepage.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class Connexion extends StatefulWidget {
+  const Connexion({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Connexion> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<Connexion> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   Future<Token>? _futureTokens;
@@ -47,6 +49,9 @@ class _HomePageState extends State<HomePage> {
                         text: '"Entrez votre email / pseudo"',
                         controller: emailController,
                         showPassword: false,
+                        colorInput: Color(0xFF293548),
+                        colorTexte: Colors.white,
+                        type: TextInputType.text,
                       ),
                       SizedBox(height: 16),
                       InputTexte(
@@ -54,17 +59,19 @@ class _HomePageState extends State<HomePage> {
                         text: "Entrez votre mdp",
                         controller: passwordController,
                         showPassword: true,
+                        colorInput: Color(0xFF293548),
+                        colorTexte: Colors.white,
+                        type: TextInputType.text,
                       ),
                       SizedBox(height: 38),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          ElevatedButton(
+                          Button(
                             onPressed: () async {
                               setState(() {
                                 String email = emailController.text;
                                 String password = passwordController.text;
-
                                 _futureTokens =
                                     Service.fetchToken(email, password);
                               });
@@ -80,39 +87,16 @@ class _HomePageState extends State<HomePage> {
                                 print(e);
                               }
                             },
-                            child: Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: Text(
-                                "Se connecter",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                )),
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.white)),
+                            texte: "Se connecter",
                           ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: Text(
-                                "S'inscrire",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                )),
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.white)),
+                          Button(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) => Inscription())));
+                            },
+                            texte: "S'inscrire",
                           ),
                         ],
                       ),

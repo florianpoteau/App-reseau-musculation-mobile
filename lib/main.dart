@@ -10,8 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Search Game",
-        home: HomePage(),
+        title: "RenconSport",
+        home: Connexion(),
         theme: CustomTheme.defaultTheme);
   }
 }
