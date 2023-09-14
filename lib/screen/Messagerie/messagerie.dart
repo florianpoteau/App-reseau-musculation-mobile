@@ -26,11 +26,10 @@ class _MessagerieState extends State<Messagerie> {
                   minHeight: 80.0,
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.7,
-                      color: Colors.white,
                       child: Row(
                         children: [
                           Icon(
@@ -43,6 +42,10 @@ class _MessagerieState extends State<Messagerie> {
                             style: TextStyle(fontSize: 30),
                           ),
                         ],
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.white,
                       ),
                     ),
                     new ConstrainedBox(
@@ -64,6 +67,8 @@ class _MessagerieState extends State<Messagerie> {
                                 borderRadius: BorderRadius.circular(80),
                               ),
                             ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Color.fromARGB(255, 35, 135, 216)),
                           ),
                         ),
                       ),

@@ -13,7 +13,7 @@ class AuthRegister {
     };
     try {
       final response = await dio.post(
-        'http://192.168.0.34:8000/api/users',
+        'http://192.168.0.108:8000/api/users',
         data: registerAuthData,
       );
       if (response.statusCode == 201) {
