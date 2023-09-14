@@ -10,7 +10,8 @@ class InputTexte extends StatelessWidget {
       required this.showPassword,
       required this.colorInput,
       required this.colorTexte,
-      required this.type});
+      required this.type,
+      required this.floatingLabel});
 
   final IconData icon;
   final String text;
@@ -19,6 +20,7 @@ class InputTexte extends StatelessWidget {
   final Color colorInput;
   final Color colorTexte;
   final TextInputType type;
+  final FloatingLabelBehavior floatingLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class InputTexte extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
         labelStyle: TextStyle(color: colorTexte),
+        floatingLabelBehavior: floatingLabel,
         filled: true,
         fillColor: colorInput,
       ),

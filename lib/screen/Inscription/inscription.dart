@@ -52,6 +52,7 @@ class _InscriptionState extends State<Inscription> {
                         colorInput: Colors.white,
                         colorTexte: Colors.black,
                         type: TextInputType.text,
+                        floatingLabel: FloatingLabelBehavior.never,
                       ),
                       SizedBox(height: 25),
                       InputTexte(
@@ -62,6 +63,7 @@ class _InscriptionState extends State<Inscription> {
                         colorInput: Colors.white,
                         colorTexte: Colors.black,
                         type: TextInputType.text,
+                        floatingLabel: FloatingLabelBehavior.never,
                       ),
                       SizedBox(height: 25),
                       InputTexte(
@@ -72,6 +74,7 @@ class _InscriptionState extends State<Inscription> {
                         colorInput: Colors.white,
                         colorTexte: Colors.black,
                         type: TextInputType.text,
+                        floatingLabel: FloatingLabelBehavior.never,
                       ),
                       SizedBox(height: 25),
                       InputTexte(
@@ -82,6 +85,7 @@ class _InscriptionState extends State<Inscription> {
                         colorInput: Colors.white,
                         colorTexte: Colors.black,
                         type: TextInputType.text,
+                        floatingLabel: FloatingLabelBehavior.never,
                       ),
                       SizedBox(height: 25),
                       InputTexte(
@@ -92,6 +96,7 @@ class _InscriptionState extends State<Inscription> {
                         colorInput: Colors.white,
                         colorTexte: Colors.black,
                         type: TextInputType.number,
+                        floatingLabel: FloatingLabelBehavior.never,
                       ),
                       SizedBox(height: 40),
                       Button(

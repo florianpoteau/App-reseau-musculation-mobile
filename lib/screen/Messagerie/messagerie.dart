@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/screen/widget/boutonAdd.dart';
+import 'package:renconsport/screen/widget/container.dart';
 import 'package:renconsport/services/theme.dart';
 
 class Messagerie extends StatefulWidget {
@@ -28,55 +30,29 @@ class _MessagerieState extends State<Messagerie> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.account_circle,
-                            size: 80,
-                          ),
-                          SizedBox(width: 30),
-                          Text(
-                            "FLO",
-                            style: TextStyle(fontSize: 30),
-                          ),
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.white,
-                      ),
-                    ),
+                    // Widget
+                    ContainerMessagerie(),
                     new ConstrainedBox(
                       constraints: new BoxConstraints(
                         minHeight: 80.0,
                       ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.22,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Icon(
-                            Icons.add,
-                            size: 40,
-                          ),
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(80),
-                              ),
-                            ),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Color.fromARGB(255, 35, 135, 216)),
-                          ),
-                        ),
-                      ),
+                      // Widget
+                      child: BoutonAdd(),
                     ),
                   ],
                 ),
               ),
             ),
+            Expanded(
+                child: Align(
+              alignment: Alignment.bottomLeft,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.arrow_back),
+              ),
+            ))
           ],
         ),
       ),
