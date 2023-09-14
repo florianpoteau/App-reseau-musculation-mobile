@@ -24,9 +24,9 @@ class Service {
 
         final Token token = Token.fromJson(responseData);
 
+        await storage.write(key: 'token', value: token.token);
         final Header header = Header();
         header.setAuthToken(token.token);
-        await storage.write(key: 'token', value: token.token);
         final value = await storage.read(key: 'token');
         print(value);
 

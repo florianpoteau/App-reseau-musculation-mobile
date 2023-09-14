@@ -8,4 +8,8 @@ class Header {
   void setAuthToken(String authToken) {
     _dio.options.headers['Authorization'] = 'Bearer $authToken';
   }
+
+  Map<String, dynamic> getHeaders() {
+    return _dio.options.headers;
+  }
 }

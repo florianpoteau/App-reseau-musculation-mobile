@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/models/user.dart';
+import 'package:renconsport/services/GetUsers/fetchUser.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
@@ -11,6 +13,25 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  List<User> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsers();
+  }
+
+  Future<void> _loadUsers() async {
+    try {
+      final userList = await GetAllUsers.fetchUsers();
+      setState(() {
+        users = userList;
+      });
+    } catch (e) {
+      print('Erreur lors du chargement des utilisateurs: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +76,10 @@ class _HomepageState extends State<Homepage> {
         color: Color(0xFFEE7203),
         child: Column(
           children: [
-            Expanded(child: ContainerCardSport()),
+            Expanded(
+                child: ContainerCardSport(
+              users: users,
+            )),
             FooterButton(),
           ],
         ),
