@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:renconsport/screen/widget/boutonAdd.dart';
+import 'package:renconsport/screen/widget/boutonAddUserSeance.dart';
 import 'package:renconsport/screen/widget/container.dart';
 import 'package:renconsport/services/theme.dart';
 
@@ -37,7 +37,7 @@ class _MessagerieState extends State<Messagerie> {
                         minHeight: 80.0,
                       ),
                       // Widget
-                      child: BoutonAdd(),
+                      child: BoutonAddUserSeance(),
                     ),
                   ],
                 ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/session.dart';
 import 'package:renconsport/screen/Messagerie/messagerie.dart';
-import 'package:renconsport/screen/widget/bouton.dart';
+import 'package:renconsport/screen/widget/boutonIdentificationUser.dart';
 import 'package:renconsport/screen/widget/inputTexte.dart';
 import 'package:renconsport/screen/Inscription/inscription.dart';
 import 'package:renconsport/services/authToken/fetchToken.dart';
@@ -23,8 +23,19 @@ class _HomePageState extends State<Connexion> {
   TextEditingController passwordController = TextEditingController();
   Future<Token>? _futureTokens;
   final storage = new FlutterSecureStorage();
-  bool isLoading =
-      false; // Ajout d'une variable pour suivre l'état du chargement
+  bool isLoading = false;
+
+  Future<void> _removeToken() async {
+    await storage.delete(key: 'token');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Supprime le token lors de l'initialisation de la page
+    _removeToken();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +84,7 @@ class _HomePageState extends State<Connexion> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Button(
+                              ButtonIdentificationUser(
                                 onPressed: () async {
                                   setState(() {
                                     isLoading =
@@ -89,7 +100,7 @@ class _HomePageState extends State<Connexion> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Messagerie(),
+                                          builder: (context) => Homepage(),
                                         ),
                                       );
                                     }
@@ -104,7 +115,7 @@ class _HomePageState extends State<Connexion> {
                                 },
                                 texte: "Se connecter",
                               ),
-                              Button(
+                              ButtonIdentificationUser(
                                 onPressed: () {
                                   Navigator.push(
                                     context,

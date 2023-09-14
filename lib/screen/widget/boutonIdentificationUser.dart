@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
+class ButtonIdentificationUser extends StatelessWidget {
   final VoidCallback onPressed;
   final String texte;
 
-  Button({
+  ButtonIdentificationUser({
     required this.onPressed,
     required this.texte,
   });
