@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ContainerMessagerie extends StatelessWidget {
-  const ContainerMessagerie({super.key});
+  final String username; // Ajoutez le paramètre username
+
+  const ContainerMessagerie({Key? key, required this.username})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +16,9 @@ class ContainerMessagerie extends StatelessWidget {
             Icons.account_circle,
             size: 80,
           ),
-          SizedBox(width: 30),
+          SizedBox(width: 15),
           Text(
-            "FLO",
+            username, // Utilisez le nom d'utilisateur passé en paramètre
             style: TextStyle(fontSize: 30),
           ),
         ],

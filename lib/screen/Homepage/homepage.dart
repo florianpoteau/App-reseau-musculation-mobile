@@ -25,7 +25,7 @@ class _HomepageState extends State<Homepage> {
     try {
       final userList = await GetAllUsers.fetchUsers();
       setState(() {
-        users = userList;
+        users = userList as List<User>;
       });
     } catch (e) {
       print('Erreur lors du chargement des utilisateurs: $e');
@@ -76,10 +76,7 @@ class _HomepageState extends State<Homepage> {
         color: Color(0xFFEE7203),
         child: Column(
           children: [
-            Expanded(
-                child: ContainerCardSport(
-              users: users,
-            )),
+            Expanded(child: ContainerCardSport()),
             FooterButton(),
           ],
         ),

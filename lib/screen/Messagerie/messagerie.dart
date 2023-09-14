@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/models/user.dart';
 import 'package:renconsport/screen/widget/boutonAddUserSeance.dart';
 import 'package:renconsport/screen/widget/container.dart';
+import 'package:renconsport/services/GetUsers/fetchUser.dart';
 import 'package:renconsport/services/theme.dart';
 
 class Messagerie extends StatefulWidget {
@@ -11,6 +13,25 @@ class Messagerie extends StatefulWidget {
 }
 
 class _MessagerieState extends State<Messagerie> {
+  List<User> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsers();
+  }
+
+  Future<void> _loadUsers() async {
+    try {
+      final userList = await GetAllUsers.fetchUsers();
+      setState(() {
+        users = userList;
+      });
+    } catch (e) {
+      print('Erreur lors du chargement des utilisateurs: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,18 +48,25 @@ class _MessagerieState extends State<Messagerie> {
                 constraints: new BoxConstraints(
                   minHeight: 80.0,
                 ),
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // Widget
-                    ContainerMessagerie(),
-                    new ConstrainedBox(
-                      constraints: new BoxConstraints(
-                        minHeight: 80.0,
+                    for (User user in users)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ContainerMessagerie(username: user.username),
+                          SizedBox(height: 20),
+                          new ConstrainedBox(
+                            constraints: new BoxConstraints(
+                              minHeight: 80.0,
+                            ),
+                            // Widget
+                            child: BoutonAddUserSeance(),
+                          ),
+                        ],
                       ),
-                      // Widget
-                      child: BoutonAddUserSeance(),
-                    ),
                   ],
                 ),
               ),

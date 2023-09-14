@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:renconsport/models/user.dart';
 import 'package:renconsport/screen/widget/customCardSport.dart';
 
 class ContainerCardSport extends StatelessWidget {
-  const ContainerCardSport({super.key, required this.users});
-
-  final List<User> users;
+  const ContainerCardSport({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +23,11 @@ class ContainerCardSport extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                for (var user in users)
-                  CustomCardSport(
-                    content: 'Card 1',
-                    users: [user],
-                  ),
+                CustomCardSport(
+                  content: 'Card 1',
+                ),
                 SizedBox(height: 20),
+                CustomCardSport(content: 'Card 2')
               ],
             ),
           ),
