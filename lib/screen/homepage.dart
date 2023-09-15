@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widget/buttons.dart';
 import '../widget/containerCardSport.dart';
+import '../screen/profilPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,9 +35,17 @@ class _HomepageState extends State<Homepage> {
                 fontSize: 28,
               ),
             ),
-            CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 30,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilPage()),
+                );
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 30,
+              ),
             ),
           ],
         ),
@@ -45,7 +54,7 @@ class _HomepageState extends State<Homepage> {
         color: Color(0xFFEE7203),
         child: Column(
           children: [
-            Expanded(child: ContainerCardSport()),
+            Expanded(child: ContainerCardSport(cardColor: Color(0xFFEEB116))),
             FooterButtons(),
           ],
         ),

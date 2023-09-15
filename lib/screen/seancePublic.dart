@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widget/buttons.dart';
+import '../widget/containerCardSport.dart';
+import '../widget/filter.dart';
 
 class SeancePublic extends StatefulWidget {
   @override
@@ -7,60 +9,31 @@ class SeancePublic extends StatefulWidget {
 }
 
 class _SeancePublicState extends State<SeancePublic> {
+  String? _selectedSport = 'Tout';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF293548),
+        toolbarHeight: 100.0,
+        title: FilterDropdown(
+          onChanged: (value) {
+            setState(() {
+              _selectedSport = value;
+            });
+          },
+        ),
+      ),
       body: Container(
         color: Color(0xFFEE7203),
         child: Column(
           children: [
-            Expanded(
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: 380,
-                  height: 630,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-              ),
-            ),
-            FooterButtons(),
+            Expanded(child: ContainerCardSport(selectedSport: _selectedSport)),
+            FooterButtons(showSearchButton: false),
           ],
         ),
       ),
     );
   }
-}
-
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Color(0xFF293548),
-      toolbarHeight: 100.0,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Bonjour User',
-            style: TextStyle(
-              fontSize: 28.0,
-            ),
-          ),
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 30.0,
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => Size.fromHeight(100.0);
 }

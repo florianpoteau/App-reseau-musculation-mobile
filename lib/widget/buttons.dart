@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../screen/seancePublic.dart';
+import '../screen/creationSeanceFiltre.dart';
 
 class FooterButtons extends StatelessWidget {
+  final bool showSearchButton;
+
+  FooterButtons({this.showSearchButton = true});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -10,18 +15,24 @@ class FooterButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          if (showSearchButton)
+            CircleButton(
+              icon: FontAwesomeIcons.search,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SeancePublic()),
+                );
+              },
+            ),
           CircleButton(
-            icon: FontAwesomeIcons.search,
+            icon: FontAwesomeIcons.plus,
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SeancePublic()),
+                MaterialPageRoute(builder: (context) => CreationSeanceFiltre()),
               );
             },
-          ),
-          CircleButton(
-            icon: FontAwesomeIcons.plus,
-            onPressed: () {},
           ),
           CircleButton(
             icon: FontAwesomeIcons.comment,

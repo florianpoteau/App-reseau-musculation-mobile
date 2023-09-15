@@ -3,8 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomCard extends StatelessWidget {
   final String content;
+  final IconData iconData;
+  final Color cardColor;
 
-  CustomCard({required this.content});
+  CustomCard({
+    required this.content,
+    this.iconData = FontAwesomeIcons.question,
+    this.cardColor = const Color(0xFF0091AD),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,26 +18,23 @@ class CustomCard extends StatelessWidget {
       width: 300,
       height: 80,
       child: Card(
-        color: Color(0xFF0091AD),
+        color: cardColor,
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: FaIcon(
-                  FontAwesomeIcons.running,
-                  size: 40,
-                ),
+              FaIcon(
+                iconData,
+                size: 45,
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 80),
                 child: Text(
-                  'User',
+                  content,
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 28,
                   ),
                 ),
               ),
