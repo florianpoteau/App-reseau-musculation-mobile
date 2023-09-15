@@ -27,6 +27,5 @@ class CircleButton extends StatelessWidget {
         size: 24,
       ),
     );
-    ;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:renconsport/models/user.dart';
-import 'package:renconsport/screen/widget/boutonAddUserSeance.dart';
+import 'package:renconsport/screen/widget/Bouton/boutonAddUserSeance.dart';
 import 'package:renconsport/screen/widget/container.dart';
 import 'package:renconsport/services/GetUsers/fetchUser.dart';
 import 'package:renconsport/services/theme.dart';

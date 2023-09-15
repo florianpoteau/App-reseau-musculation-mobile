@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:renconsport/models/user.dart';
 import 'package:renconsport/screen/Connexion/connexion.dart';
-import 'package:renconsport/screen/widget/boutonIdentificationUser.dart';
+import 'package:renconsport/screen/widget/Bouton/boutonIdentificationUser.dart';
 import 'package:renconsport/screen/widget/inputTexte.dart';
 import 'package:renconsport/services/AuthRegister/authRegister.dart';
 import 'package:renconsport/services/theme.dart';

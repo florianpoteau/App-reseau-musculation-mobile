@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:renconsport/screen/widget/customCardSport.dart';
+import 'package:renconsport/screen/widget/Card/customCardSport.dart';
 
 class ContainerCardSport extends StatelessWidget {
-  const ContainerCardSport({super.key});
+  const ContainerCardSport(
+      {super.key, required selectedSport, required Color cardColor});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,5 @@ class ContainerCardSport extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

@@ -5,6 +5,8 @@ import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
 
+import '../ProfilPage/profilPage.dart';
+
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
 
@@ -65,9 +67,17 @@ class _HomepageState extends State<Homepage> {
                 }
               },
             ),
-            CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 30,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilPage()),
+                );
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 30,
+              ),
             ),
           ],
         ),
@@ -76,7 +86,11 @@ class _HomepageState extends State<Homepage> {
         color: Color(0xFFEE7203),
         child: Column(
           children: [
-            Expanded(child: ContainerCardSport()),
+            Expanded(
+                child: ContainerCardSport(
+              cardColor: Color(0xFFEEB116),
+              selectedSport: null,
+            )),
             FooterButton(),
           ],
         ),
