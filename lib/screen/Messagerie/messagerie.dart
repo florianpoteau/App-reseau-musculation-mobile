@@ -14,6 +14,7 @@ class Messagerie extends StatefulWidget {
 
 class _MessagerieState extends State<Messagerie> {
   List<User> users = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -26,9 +27,13 @@ class _MessagerieState extends State<Messagerie> {
       final userList = await GetAllUsers.fetchUsers();
       setState(() {
         users = userList;
+        isLoading = false;
       });
     } catch (e) {
       print('Erreur lors du chargement des utilisateurs: $e');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -38,51 +43,53 @@ class _MessagerieState extends State<Messagerie> {
       appBar: AppBar(
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        // Utilisation de SingleChildScrollView
-        child: Container(
-          color: CustomTheme.Colorblue,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    // Widget
-                    for (User user in users)
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ContainerMessagerie(username: user.username),
-                            SizedBox(height: 20),
-                            new ConstrainedBox(
-                              constraints: new BoxConstraints(
-                                minHeight: 80.0,
-                              ),
-                              // Widget
-                              child: BoutonAddUserSeance(),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            // Utilisation de SingleChildScrollView
+            child: Container(
+              color: CustomTheme.Colorblue,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // Widget
+                        for (User user in users)
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ContainerMessagerie(username: user.username),
+                                SizedBox(height: 20),
+                                new ConstrainedBox(
+                                  constraints: new BoxConstraints(
+                                    minHeight: 80.0,
+                                  ),
+                                  // Widget
+                                  child: BoutonAddUserSeance(),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Icon(Icons.arrow_back),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          if (isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.5), // Fond semi-transparent
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+        ],
       ),
     );
   }

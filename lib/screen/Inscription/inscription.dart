@@ -20,152 +20,172 @@ class _InscriptionState extends State<Inscription> {
   TextEditingController secondPasswordController = TextEditingController();
   TextEditingController ageController = TextEditingController();
 
+  bool isLoading = false;
+
   Future<User>? _futureUser;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: CustomTheme.Colorblue,
+        ),
         backgroundColor: CustomTheme.Colorblue,
-      ),
-      backgroundColor: CustomTheme.Colorblue,
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Text(
-                'Inscription',
-                style: TextStyle(color: Colors.white, fontSize: 40),
-              ),
-              SizedBox(height: 90),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: Form(
-                  child: Column(
-                    children: [
-                      InputTexte(
-                        controller: pseudoController,
-                        icon: Icons.person,
-                        showPassword: false,
-                        text: "Entrez votre pseudo",
-                        colorInput: Colors.white,
-                        colorTexte: Colors.black,
-                        type: TextInputType.text,
-                        floatingLabel: FloatingLabelBehavior.never,
-                      ),
-                      SizedBox(height: 25),
-                      InputTexte(
-                        icon: Icons.email,
-                        text: "Entrez votre email",
-                        controller: emailController,
-                        showPassword: false,
-                        colorInput: Colors.white,
-                        colorTexte: Colors.black,
-                        type: TextInputType.text,
-                        floatingLabel: FloatingLabelBehavior.never,
-                      ),
-                      SizedBox(height: 25),
-                      InputTexte(
-                        icon: Icons.lock,
-                        text: "Entrez votre mot de passe",
-                        controller: firstPasswordController,
-                        showPassword: true,
-                        colorInput: Colors.white,
-                        colorTexte: Colors.black,
-                        type: TextInputType.text,
-                        floatingLabel: FloatingLabelBehavior.never,
-                      ),
-                      SizedBox(height: 25),
-                      InputTexte(
-                        icon: Icons.lock,
-                        text: "Confirmez votre mot de passe",
-                        controller: secondPasswordController,
-                        showPassword: true,
-                        colorInput: Colors.white,
-                        colorTexte: Colors.black,
-                        type: TextInputType.text,
-                        floatingLabel: FloatingLabelBehavior.never,
-                      ),
-                      SizedBox(height: 25),
-                      InputTexte(
-                        icon: Icons.calendar_month,
-                        text: "Entrez votre age",
-                        controller: ageController,
-                        showPassword: false,
-                        colorInput: Colors.white,
-                        colorTexte: Colors.black,
-                        type: TextInputType.number,
-                        floatingLabel: FloatingLabelBehavior.never,
-                      ),
-                      SizedBox(height: 40),
-                      ButtonIdentificationUser(
-                        onPressed: () async {
-                          setState(() {
-                            String pseudo = pseudoController.text;
-                            String email = emailController.text;
-                            String firstPassword = firstPasswordController.text;
-                            String secondPassword =
-                                secondPasswordController.text;
-                            int age = int.parse(ageController.text);
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      'Inscription',
+                      style: TextStyle(color: Colors.white, fontSize: 40),
+                    ),
+                    SizedBox(height: 90),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Form(
+                        child: Column(
+                          children: [
+                            InputTexte(
+                              controller: pseudoController,
+                              icon: Icons.person,
+                              showPassword: false,
+                              text: "Entrez votre pseudo",
+                              colorInput: Colors.white,
+                              colorTexte: Colors.black,
+                              type: TextInputType.text,
+                              floatingLabel: FloatingLabelBehavior.never,
+                            ),
+                            SizedBox(height: 25),
+                            InputTexte(
+                              icon: Icons.email,
+                              text: "Entrez votre email",
+                              controller: emailController,
+                              showPassword: false,
+                              colorInput: Colors.white,
+                              colorTexte: Colors.black,
+                              type: TextInputType.text,
+                              floatingLabel: FloatingLabelBehavior.never,
+                            ),
+                            SizedBox(height: 25),
+                            InputTexte(
+                              icon: Icons.lock,
+                              text: "Entrez votre mot de passe",
+                              controller: firstPasswordController,
+                              showPassword: true,
+                              colorInput: Colors.white,
+                              colorTexte: Colors.black,
+                              type: TextInputType.text,
+                              floatingLabel: FloatingLabelBehavior.never,
+                            ),
+                            SizedBox(height: 25),
+                            InputTexte(
+                              icon: Icons.lock,
+                              text: "Confirmez votre mot de passe",
+                              controller: secondPasswordController,
+                              showPassword: true,
+                              colorInput: Colors.white,
+                              colorTexte: Colors.black,
+                              type: TextInputType.text,
+                              floatingLabel: FloatingLabelBehavior.never,
+                            ),
+                            SizedBox(height: 25),
+                            InputTexte(
+                              icon: Icons.calendar_month,
+                              text: "Entrez votre age",
+                              controller: ageController,
+                              showPassword: false,
+                              colorInput: Colors.white,
+                              colorTexte: Colors.black,
+                              type: TextInputType.number,
+                              floatingLabel: FloatingLabelBehavior.never,
+                            ),
+                            SizedBox(height: 40),
+                            ButtonIdentificationUser(
+                              onPressed: () async {
+                                setState(() {
+                                  isLoading = true;
+                                  String pseudo = pseudoController.text;
+                                  String email = emailController.text;
+                                  String firstPassword =
+                                      firstPasswordController.text;
+                                  String secondPassword =
+                                      secondPasswordController.text;
+                                  int age = int.parse(ageController.text);
 
-                            if (firstPassword == secondPassword) {
-                              _futureUser = AuthRegister.postUser(
-                                  pseudo, email, firstPassword, age);
-                            }
-                          });
+                                  if (firstPassword == secondPassword) {
+                                    _futureUser = AuthRegister.postUser(
+                                        pseudo, email, firstPassword, age);
+                                  }
+                                });
 
-                          // Mot de passe qui corresponde:
+                                // Mot de passe qui corresponde:
 
-                          try {
-                            final user = await _futureUser;
-                            if (user != null) {
-                              // La requête d'inscription a réussi, naviguez vers la page de connexion
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Connexion(),
-                                ),
-                              );
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text(
-                                      'Erreur',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                    content: Text(
-                                      'Les mots de passe ne correspondent pas.',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text('OK'),
+                                try {
+                                  final user = await _futureUser;
+                                  if (user != null) {
+                                    // La requête d'inscription a réussi, naviguez vers la page de connexion
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Connexion(),
                                       ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                        texte: "Inscription",
-                      )
-                    ],
-                  ),
+                                    );
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                            'Erreur',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          content: Text(
+                                            'Les mots de passe ne correspondent pas.',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text('OK'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                } catch (e) {
+                                  print(e);
+                                } finally {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                }
+                              },
+                              texte: "Inscription",
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+            if (isLoading)
+              Container(
+                color: Colors.black.withOpacity(0.5), // Fond semi-transparent
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+          ],
+        ));
   }
 }
