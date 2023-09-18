@@ -18,6 +18,7 @@ class Connexion extends StatefulWidget {
 }
 
 class _HomePageState extends State<Connexion> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   Future<Token>? _futureTokens;
@@ -52,6 +53,7 @@ class _HomePageState extends State<Connexion> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     color: CustomTheme.Colororange,
                     child: Form(
+                      key: _formKey,
                       child: Column(
                         children: [
                           SizedBox(height: 70),
@@ -66,6 +68,7 @@ class _HomePageState extends State<Connexion> {
                             colorTexte: Colors.white,
                             type: TextInputType.text,
                             floatingLabel: FloatingLabelBehavior.auto,
+                            minLength: 3,
                           ),
                           SizedBox(height: 16),
                           InputTexte(
@@ -77,6 +80,7 @@ class _HomePageState extends State<Connexion> {
                             colorTexte: Colors.white,
                             type: TextInputType.text,
                             floatingLabel: FloatingLabelBehavior.auto,
+                            minLength: 3,
                           ),
                           SizedBox(height: 38),
                           Row(
@@ -84,32 +88,35 @@ class _HomePageState extends State<Connexion> {
                             children: [
                               ButtonIdentificationUser(
                                 onPressed: () async {
-                                  setState(() {
-                                    isLoading =
-                                        true; // Activer l'indicateur de chargement
-                                    String email = emailController.text;
-                                    String password = passwordController.text;
-                                    _futureTokens =
-                                        Service.fetchToken(email, password);
-                                  });
-                                  try {
-                                    final tokens = await _futureTokens;
-                                    print(tokens);
-                                    if (tokens != null) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Homepage(),
-                                        ),
-                                      );
-                                    }
-                                  } catch (e) {
-                                    print(e);
-                                  } finally {
+                                  // Valider le formulaire
+                                  if (_formKey.currentState!.validate()) {
                                     setState(() {
                                       isLoading =
-                                          false; // Désactiver l'indicateur de chargement
+                                          true; // Activer l'indicateur de chargement
+                                      String email = emailController.text;
+                                      String password = passwordController.text;
+                                      _futureTokens =
+                                          Service.fetchToken(email, password);
                                     });
+                                    try {
+                                      final tokens = await _futureTokens;
+                                      print(tokens);
+                                      if (tokens != null) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Homepage(),
+                                          ),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      print(e);
+                                    } finally {
+                                      setState(() {
+                                        isLoading =
+                                            false; // Désactiver l'indicateur de chargement
+                                      });
+                                    }
                                   }
                                 },
                                 texte: "Se connecter",

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 class InputTexte extends StatelessWidget {
   const InputTexte({
-    super.key,
+    Key? key,
     required this.icon,
     required this.text,
     required this.controller,
@@ -12,7 +12,8 @@ class InputTexte extends StatelessWidget {
     required this.colorTexte,
     required this.type,
     required this.floatingLabel,
-  });
+    required this.minLength, // Ajoutez cette propriété
+  }) : super(key: key);
 
   final IconData icon;
   final String text;
@@ -22,29 +23,37 @@ class InputTexte extends StatelessWidget {
   final Color colorTexte;
   final TextInputType type;
   final FloatingLabelBehavior floatingLabel;
+  final int minLength; // Ajoutez cette propriété pour la longueur minimale
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: type,
-      obscureText: showPassword,
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: text,
-        prefixIcon: Icon(
-          icon,
-          color: colorTexte,
+        keyboardType: type,
+        obscureText: showPassword,
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: text,
+          prefixIcon: Icon(
+            icon,
+            color: colorTexte,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          labelStyle: TextStyle(color: colorTexte),
+          floatingLabelBehavior: floatingLabel,
+          filled: true,
+          fillColor: colorInput,
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        labelStyle: TextStyle(color: colorTexte),
-        floatingLabelBehavior: floatingLabel,
-        filled: true,
-        fillColor: colorInput,
-      ),
-      style: TextStyle(color: colorTexte),
-      inputFormatters: [LengthLimitingTextInputFormatter(10)],
-    );
+        style: TextStyle(color: colorTexte),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Veuillez saisir du texte';
+          }
+          if (value.length < minLength) {
+            return 'Le texte doit contenir au moins $minLength caractères';
+          }
+          return null; // La validation a réussi
+        });
   }
 }

@@ -7,7 +7,7 @@ import 'package:renconsport/services/AuthRegister/authRegister.dart';
 import 'package:renconsport/services/theme.dart';
 
 class Inscription extends StatefulWidget {
-  const Inscription({super.key});
+  const Inscription({Key? key}) : super(key: key);
 
   @override
   State<Inscription> createState() => _InscriptionState();
@@ -23,138 +23,113 @@ class _InscriptionState extends State<Inscription> {
   bool isLoading = false;
 
   Future<User>? _futureUser;
+  final _formKey = GlobalKey<FormState>(); // Clé pour le formulaire
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: CustomTheme.Colorblue,
-        ),
+      appBar: AppBar(
+        centerTitle: true,
         backgroundColor: CustomTheme.Colorblue,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      'Inscription',
-                      style: TextStyle(color: Colors.white, fontSize: 40),
-                    ),
-                    SizedBox(height: 90),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: Form(
-                        child: Column(
-                          children: [
-                            InputTexte(
-                              controller: pseudoController,
-                              icon: Icons.person,
-                              showPassword: false,
-                              text: "Entrez votre pseudo",
-                              colorInput: Colors.white,
-                              colorTexte: Colors.black,
-                              type: TextInputType.text,
-                              floatingLabel: FloatingLabelBehavior.never,
-                            ),
-                            SizedBox(height: 25),
-                            InputTexte(
-                              icon: Icons.email,
-                              text: "Entrez votre email",
-                              controller: emailController,
-                              showPassword: false,
-                              colorInput: Colors.white,
-                              colorTexte: Colors.black,
-                              type: TextInputType.text,
-                              floatingLabel: FloatingLabelBehavior.never,
-                            ),
-                            SizedBox(height: 25),
-                            InputTexte(
-                              icon: Icons.lock,
-                              text: "Entrez votre mot de passe",
-                              controller: firstPasswordController,
-                              showPassword: true,
-                              colorInput: Colors.white,
-                              colorTexte: Colors.black,
-                              type: TextInputType.text,
-                              floatingLabel: FloatingLabelBehavior.never,
-                            ),
-                            SizedBox(height: 25),
-                            InputTexte(
-                              icon: Icons.lock,
-                              text: "Confirmez votre mot de passe",
-                              controller: secondPasswordController,
-                              showPassword: true,
-                              colorInput: Colors.white,
-                              colorTexte: Colors.black,
-                              type: TextInputType.text,
-                              floatingLabel: FloatingLabelBehavior.never,
-                            ),
-                            SizedBox(height: 25),
-                            InputTexte(
-                              icon: Icons.calendar_month,
-                              text: "Entrez votre age",
-                              controller: ageController,
-                              showPassword: false,
-                              colorInput: Colors.white,
-                              colorTexte: Colors.black,
-                              type: TextInputType.number,
-                              floatingLabel: FloatingLabelBehavior.never,
-                            ),
-                            SizedBox(height: 40),
-                            ButtonIdentificationUser(
-                              onPressed: () async {
-                                // Vérifiez d'abord si tous les champs sont préremplis
-                                if (pseudoController.text.isEmpty ||
-                                    emailController.text.isEmpty ||
-                                    firstPasswordController.text.isEmpty ||
-                                    secondPasswordController.text.isEmpty ||
-                                    ageController.text.isEmpty) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text(
-                                          'Erreur',
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        content: Text(
-                                          'Veuillez remplir tous les champs.',
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                  return; // Sortez de la fonction si un champ est vide
-                                }
-
-                                // Tous les champs sont remplis, continuez avec le traitement
+      ),
+      backgroundColor: CustomTheme.Colorblue,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  Text(
+                    'Inscription',
+                    style: TextStyle(color: Colors.white, fontSize: 40),
+                  ),
+                  SizedBox(height: 90),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Form(
+                      key: _formKey, // Utilisez la clé pour le formulaire
+                      child: Column(
+                        children: [
+                          InputTexte(
+                            controller: pseudoController,
+                            icon: Icons.person,
+                            showPassword: false,
+                            text: "Entrez votre pseudo",
+                            colorInput: Colors.white,
+                            colorTexte: Colors.black,
+                            type: TextInputType.text,
+                            floatingLabel: FloatingLabelBehavior.never,
+                            minLength: 3,
+                          ),
+                          SizedBox(height: 25),
+                          InputTexte(
+                            icon: Icons.email,
+                            text: "Entrez votre email",
+                            controller: emailController,
+                            showPassword: false,
+                            colorInput: Colors.white,
+                            colorTexte: Colors.black,
+                            type: TextInputType.text,
+                            floatingLabel: FloatingLabelBehavior.never,
+                            minLength: 3,
+                          ),
+                          SizedBox(height: 25),
+                          InputTexte(
+                            icon: Icons.lock,
+                            text: "Entrez votre mot de passe",
+                            controller: firstPasswordController,
+                            showPassword: true,
+                            colorInput: Colors.white,
+                            colorTexte: Colors.black,
+                            type: TextInputType.text,
+                            floatingLabel: FloatingLabelBehavior.never,
+                            minLength: 8,
+                          ),
+                          SizedBox(height: 25),
+                          InputTexte(
+                            icon: Icons.lock,
+                            text: "Confirmez votre mot de passe",
+                            controller: secondPasswordController,
+                            showPassword: true,
+                            colorInput: Colors.white,
+                            colorTexte: Colors.black,
+                            type: TextInputType.text,
+                            floatingLabel: FloatingLabelBehavior.never,
+                            minLength: 8,
+                          ),
+                          SizedBox(height: 25),
+                          InputTexte(
+                            icon: Icons.calendar_month,
+                            text: "Entrez votre age",
+                            controller: ageController,
+                            showPassword: false,
+                            colorInput: Colors.white,
+                            colorTexte: Colors.black,
+                            type: TextInputType.number,
+                            floatingLabel: FloatingLabelBehavior.never,
+                            minLength: 1,
+                          ),
+                          SizedBox(height: 40),
+                          ButtonIdentificationUser(
+                            onPressed: () async {
+                              // Vérifiez d'abord si le formulaire est valide
+                              if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   isLoading = true;
-                                  String pseudo = pseudoController.text;
-                                  String email = emailController.text;
+                                  String pseudo = pseudoController.text.trim();
+                                  String email = emailController.text.trim();
                                   String firstPassword =
-                                      firstPasswordController.text;
+                                      firstPasswordController.text.trim();
                                   String secondPassword =
                                       secondPasswordController.text;
-                                  int age = int.parse(ageController.text);
+                                  int age =
+                                      int.parse(ageController.text.trim());
 
                                   if (firstPassword == secondPassword) {
                                     _futureUser = AuthRegister.postUser(
                                         pseudo, email, firstPassword, age);
                                   }
                                 });
-
-                                // Mot de passe qui correspond:
 
                                 try {
                                   final user = await _futureUser;
@@ -200,25 +175,27 @@ class _InscriptionState extends State<Inscription> {
                                     isLoading = false;
                                   });
                                 }
-                              },
-                              texte: "Inscription",
-                            )
-                          ],
-                        ),
+                              }
+                            },
+                            texte: "Inscription",
+                          )
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            if (isLoading)
-              Container(
-                color: Colors.black.withOpacity(0.5), // Fond semi-transparent
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+          ),
+          if (isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
-          ],
-        ));
+            ),
+        ],
+      ),
+    );
   }
 }
