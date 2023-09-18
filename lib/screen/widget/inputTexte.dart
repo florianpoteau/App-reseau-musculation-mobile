@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputTexte extends StatelessWidget {
-  const InputTexte(
-      {super.key,
-      required this.icon,
-      required this.text,
-      required this.controller,
-      required this.showPassword,
-      required this.colorInput,
-      required this.colorTexte,
-      required this.type,
-      required this.floatingLabel});
+  const InputTexte({
+    super.key,
+    required this.icon,
+    required this.text,
+    required this.controller,
+    required this.showPassword,
+    required this.colorInput,
+    required this.colorTexte,
+    required this.type,
+    required this.floatingLabel,
+  });
 
   final IconData icon;
   final String text;
@@ -42,6 +44,7 @@ class InputTexte extends StatelessWidget {
         fillColor: colorInput,
       ),
       style: TextStyle(color: colorTexte),
+      inputFormatters: [LengthLimitingTextInputFormatter(10)],
     );
   }
 }

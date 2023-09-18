@@ -105,6 +105,39 @@ class _InscriptionState extends State<Inscription> {
                             SizedBox(height: 40),
                             ButtonIdentificationUser(
                               onPressed: () async {
+                                // Vérifiez d'abord si tous les champs sont préremplis
+                                if (pseudoController.text.isEmpty ||
+                                    emailController.text.isEmpty ||
+                                    firstPasswordController.text.isEmpty ||
+                                    secondPasswordController.text.isEmpty ||
+                                    ageController.text.isEmpty) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                          'Erreur',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        content: Text(
+                                          'Veuillez remplir tous les champs.',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  return; // Sortez de la fonction si un champ est vide
+                                }
+
+                                // Tous les champs sont remplis, continuez avec le traitement
                                 setState(() {
                                   isLoading = true;
                                   String pseudo = pseudoController.text;
@@ -121,7 +154,7 @@ class _InscriptionState extends State<Inscription> {
                                   }
                                 });
 
-                                // Mot de passe qui corresponde:
+                                // Mot de passe qui correspond:
 
                                 try {
                                   final user = await _futureUser;
