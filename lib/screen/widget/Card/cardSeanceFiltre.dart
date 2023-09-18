@@ -14,7 +14,7 @@ class CardSeanceFiltre extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.1,
+      width: MediaQuery.of(context).size.width * 0.9,
       height: 80,
       padding: EdgeInsets.only(left: 10, right: 10),
       child: Card(
@@ -34,6 +34,7 @@ class CardSeanceFiltre extends StatelessWidget {
                 child: Text(
                   content,
                   style: TextStyle(
+                    color: Colors.black,
                     fontSize: 28,
                   ),
                 ),

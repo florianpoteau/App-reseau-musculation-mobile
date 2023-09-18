@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:renconsport/models/user.dart';
+import 'package:renconsport/services/ApiConfig/apiConfig.dart';
 import 'package:renconsport/services/headers/header.dart';
 
 class GetAllUsers {
@@ -10,7 +11,7 @@ class GetAllUsers {
     final Header header = Header();
     try {
       final response = await _dio.get<Map<String, dynamic>>(
-        'http://192.168.0.104:8000/api/users',
+        '${ApiConfig.baseUrl}/users',
         options: Options(headers: header.getHeaders()),
       );
 

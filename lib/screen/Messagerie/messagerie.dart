@@ -84,7 +84,7 @@ class _MessagerieState extends State<Messagerie> {
           ),
           if (isLoading)
             Container(
-              color: Colors.black.withOpacity(0.5), // Fond semi-transparent
+              color: CustomTheme.Colorblue, // Fond semi-transparent
               child: Center(
                 child: CircularProgressIndicator(),
               ),

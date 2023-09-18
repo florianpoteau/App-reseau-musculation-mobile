@@ -24,6 +24,7 @@ class _FilterDropDownState extends State<FilterDropDown> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           hint: Text("Filtre des séances"),
+          style: TextStyle(color: Colors.black),
           value: _selectedFilter,
           items: <String>[
             'Tout',
