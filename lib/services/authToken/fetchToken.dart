@@ -15,7 +15,7 @@ class Service {
 
     try {
       final response = await dio.post(
-        'http://192.168.0.108:8000/api/login_check',
+        'http://192.168.0.104:8000/api/login_check',
         data: authData,
       );
 

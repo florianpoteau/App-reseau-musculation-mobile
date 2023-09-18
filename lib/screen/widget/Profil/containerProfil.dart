@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ContainerProfil extends StatelessWidget {
-  final Widget child;
-
   const ContainerProfil({super.key, required this.child});
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {

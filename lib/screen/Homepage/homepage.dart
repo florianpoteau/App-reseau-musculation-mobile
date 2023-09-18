@@ -4,6 +4,7 @@ import 'package:renconsport/services/GetUsers/fetchUser.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../ProfilPage/profilPage.dart';
 
@@ -15,23 +16,19 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  List<User> users = [];
+  String username = 'Chargement...';
 
   @override
   void initState() {
     super.initState();
-    _loadUsers();
+    _loadUsername();
   }
 
-  Future<void> _loadUsers() async {
-    try {
-      final userList = await GetAllUsers.fetchUsers();
-      setState(() {
-        users = userList as List<User>;
-      });
-    } catch (e) {
-      print('Erreur lors du chargement des utilisateurs: $e');
-    }
+  void _loadUsername() async {
+    final data = await GetToken.getUsernameFromToken();
+    setState(() {
+      username = data != null ? data['username'] : 'Utilisateur inconnu';
+    });
   }
 
   @override
@@ -40,6 +37,7 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         backgroundColor: Color(0xFF293548),
         toolbarHeight: 100.0,
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -47,16 +45,24 @@ class _HomepageState extends State<Homepage> {
               future: GetToken.getUsernameFromToken(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  final data =
-                      snapshot.data as Map<String, dynamic>?; // Forcer le type
+                  final data = snapshot.data as Map<String, dynamic>?;
                   final username =
                       data != null ? data['username'] : 'Utilisateur inconnu';
-                  return Text(
-                    "Bonjour ${username.toString()}",
-                    style: TextStyle(
-                      fontSize: 28,
-                    ),
-                  );
+                  if (username != null && username.isNotEmpty) {
+                    return Text(
+                      "Bonjour ${username.toString()}",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    );
+                  } else {
+                    return Text(
+                      'Nom d\'utilisateur vide ou null',
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    );
+                  }
                 } else {
                   return Text(
                     'Chargement...',

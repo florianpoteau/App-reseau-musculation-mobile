@@ -11,6 +11,7 @@ class GetToken {
         final payload = json.decode(
           utf8.decode(base64Url.decode(parts[1])),
         );
+        print(payload);
         return payload;
       }
     }

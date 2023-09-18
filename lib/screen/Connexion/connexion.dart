@@ -21,10 +21,10 @@ class _HomePageState extends State<Connexion> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   Future<Token>? _futureTokens;
-  final storage = new FlutterSecureStorage();
   bool isLoading = false;
 
   Future<void> _removeToken() async {
+    final storage = new FlutterSecureStorage();
     await storage.delete(key: 'token');
   }
 
@@ -32,7 +32,6 @@ class _HomePageState extends State<Connexion> {
   void initState() {
     super.initState();
 
-    // Supprime le token lors de l'initialisation de la page
     _removeToken();
   }
 
@@ -60,7 +59,7 @@ class _HomePageState extends State<Connexion> {
                           SizedBox(height: 16.0),
                           InputTexte(
                             icon: Icons.person,
-                            text: "Entrez votre email / pseudo",
+                            text: "Entrez votre email",
                             controller: emailController,
                             showPassword: false,
                             colorInput: Color(0xFF293548),
@@ -95,6 +94,7 @@ class _HomePageState extends State<Connexion> {
                                   });
                                   try {
                                     final tokens = await _futureTokens;
+                                    print(tokens);
                                     if (tokens != null) {
                                       Navigator.push(
                                         context,

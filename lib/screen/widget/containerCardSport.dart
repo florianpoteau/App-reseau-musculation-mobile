@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:renconsport/screen/widget/Card/customCardSport.dart';
+import 'package:renconsport/screen/widget/customCardSport.dart';
 
 class ContainerCardSport extends StatelessWidget {
   const ContainerCardSport(

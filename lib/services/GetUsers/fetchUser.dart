@@ -10,7 +10,7 @@ class GetAllUsers {
     final Header header = Header();
     try {
       final response = await _dio.get<Map<String, dynamic>>(
-        'http://192.168.0.108:8000/api/users',
+        'http://192.168.0.104:8000/api/users',
         options: Options(headers: header.getHeaders()),
       );
 
