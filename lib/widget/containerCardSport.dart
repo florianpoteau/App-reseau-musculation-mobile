@@ -97,17 +97,7 @@ class ContainerCardSport extends StatelessWidget {
             padding: EdgeInsets.only(top: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CustomCard(
-                    content: 'Card 1',
-                    iconData: FontAwesomeIcons.running,
-                    cardColor: cardColor),
-                SizedBox(height: 20),
-                CustomCard(
-                    content: 'Card 2',
-                    iconData: FontAwesomeIcons.dumbbell,
-                    cardColor: cardColor),
-              ],
+              children: _buildCards(),
             ),
           ),
         ),
