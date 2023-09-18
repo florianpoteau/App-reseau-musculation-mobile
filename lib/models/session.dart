@@ -1,10 +1,9 @@
 class Token {
-  final String username;
-  final String password;
+  final String token;
 
-  Token({required this.username, required this.password});
+  Token({required this.token});
 
-  Token.fromJson(Map<String, dynamic> json)
-      : username = json['username'],
-        password = json['password'];
+  factory Token.fromJson(Map<String, dynamic> json) {
+    return Token(token: json['token']);
+  }
 }
