@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/session.dart';
+import 'package:renconsport/services/ApiConfig/apiConfig.dart';
 import 'package:renconsport/services/headers/header.dart';
 
 class Service {

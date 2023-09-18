@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:renconsport/models/user.dart';
+import 'package:renconsport/services/ApiConfig/apiConfig.dart';
 
 class AuthRegister {
   static Future<User> postUser(
@@ -13,7 +14,7 @@ class AuthRegister {
     };
     try {
       final response = await dio.post(
-        'http://192.168.0.104:8000/api/users',
+        '${ApiConfig.baseUrl}/users',
         data: registerAuthData,
       );
       if (response.statusCode == 201) {

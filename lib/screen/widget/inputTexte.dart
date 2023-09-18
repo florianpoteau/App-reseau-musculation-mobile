@@ -12,7 +12,8 @@ class InputTexte extends StatelessWidget {
     required this.colorTexte,
     required this.type,
     required this.floatingLabel,
-    required this.minLength, // Ajoutez cette propriété
+    required this.minLength,
+    required this.maxleight,
   }) : super(key: key);
 
   final IconData icon;
@@ -23,7 +24,8 @@ class InputTexte extends StatelessWidget {
   final Color colorTexte;
   final TextInputType type;
   final FloatingLabelBehavior floatingLabel;
-  final int minLength; // Ajoutez cette propriété pour la longueur minimale
+  final int minLength;
+  final int maxleight;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,9 @@ class InputTexte extends StatelessWidget {
           }
           if (value.length < minLength) {
             return 'Le texte doit contenir au moins $minLength caractères';
+          }
+          if (value.length > maxleight) {
+            return 'Le texte contient $minLength caractères en trop';
           }
           return null; // La validation a réussi
         });

@@ -30,7 +30,7 @@ class _ProfilPageState extends State<ProfilPage> {
         color: Color(0xFFEE7203),
         child: Center(
           child: FutureBuilder<Map<String, dynamic>?>(
-            future: GetToken.getUsernameFromToken(),
+            future: GetToken.getToken(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 final data = snapshot.data as Map<String, dynamic>?;
