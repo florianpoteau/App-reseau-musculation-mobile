@@ -69,6 +69,7 @@ class _HomePageState extends State<Connexion> {
                             type: TextInputType.text,
                             floatingLabel: FloatingLabelBehavior.auto,
                             minLength: 3,
+                            maxleight: 70,
                           ),
                           SizedBox(height: 16),
                           InputTexte(
@@ -81,6 +82,7 @@ class _HomePageState extends State<Connexion> {
                             type: TextInputType.text,
                             floatingLabel: FloatingLabelBehavior.auto,
                             minLength: 3,
+                            maxleight: 70,
                           ),
                           SizedBox(height: 38),
                           Row(

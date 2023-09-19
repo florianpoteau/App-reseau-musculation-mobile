@@ -25,7 +25,7 @@ class _HomepageState extends State<Homepage> {
   }
 
   void _loadUsername() async {
-    final data = await GetToken.getUsernameFromToken();
+    final data = await GetToken.getToken();
     setState(() {
       username = data != null ? data['username'] : 'Utilisateur inconnu';
     });
@@ -42,7 +42,7 @@ class _HomepageState extends State<Homepage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FutureBuilder<Map<String, dynamic>?>(
-              future: GetToken.getUsernameFromToken(),
+              future: GetToken.getToken(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   final data = snapshot.data as Map<String, dynamic>?;

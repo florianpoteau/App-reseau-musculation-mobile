@@ -60,6 +60,7 @@ class _InscriptionState extends State<Inscription> {
                             type: TextInputType.text,
                             floatingLabel: FloatingLabelBehavior.never,
                             minLength: 3,
+                            maxleight: 10,
                           ),
                           SizedBox(height: 25),
                           InputTexte(
@@ -72,6 +73,7 @@ class _InscriptionState extends State<Inscription> {
                             type: TextInputType.text,
                             floatingLabel: FloatingLabelBehavior.never,
                             minLength: 3,
+                            maxleight: 70,
                           ),
                           SizedBox(height: 25),
                           InputTexte(
@@ -84,6 +86,7 @@ class _InscriptionState extends State<Inscription> {
                             type: TextInputType.text,
                             floatingLabel: FloatingLabelBehavior.never,
                             minLength: 8,
+                            maxleight: 70,
                           ),
                           SizedBox(height: 25),
                           InputTexte(
@@ -96,6 +99,7 @@ class _InscriptionState extends State<Inscription> {
                             type: TextInputType.text,
                             floatingLabel: FloatingLabelBehavior.never,
                             minLength: 8,
+                            maxleight: 70,
                           ),
                           SizedBox(height: 25),
                           InputTexte(
@@ -108,6 +112,7 @@ class _InscriptionState extends State<Inscription> {
                             type: TextInputType.number,
                             floatingLabel: FloatingLabelBehavior.never,
                             minLength: 1,
+                            maxleight: 3,
                           ),
                           SizedBox(height: 40),
                           ButtonIdentificationUser(

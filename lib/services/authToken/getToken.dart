@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class GetToken {
-  static Future<Map<String, dynamic>?> getUsernameFromToken() async {
+  static Future<Map<String, dynamic>?> getToken() async {
     final storage = FlutterSecureStorage();
     String? token = await storage.read(key: 'token');
     if (token != null) {
@@ -13,7 +13,10 @@ class GetToken {
         );
         print(payload);
         return payload;
-      }
+      } else
+        (e) {
+          print(e);
+        };
     }
     return null;
   }
