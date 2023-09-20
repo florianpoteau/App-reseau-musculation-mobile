@@ -37,7 +37,8 @@ class _FilterDropDownState extends State<FilterDropDown> {
             'Cyclisme',
             'Arts martiaux',
             'Yoga',
-            'Danse'
+            'Danse',
+            'Autres'
           ].map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -53,6 +54,5 @@ class _FilterDropDownState extends State<FilterDropDown> {
         ),
       ),
     );
-    ;
   }
 }
