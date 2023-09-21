@@ -5,6 +5,7 @@ import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_marquee/flutter_marquee.dart';
 
 import '../ProfilPage/profilPage.dart';
 
