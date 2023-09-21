@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import './Modale/modaleDetailCard.dart';
 
 class ContainerCardSport extends StatelessWidget {
   final Color cardColor;
@@ -9,16 +10,24 @@ class ContainerCardSport extends StatelessWidget {
   ContainerCardSport(
       {this.cardColor = const Color(0xFF0091AD), this.selectedSport});
 
-  List<Widget> _buildCards() {
+  List<Widget> _buildCards(BuildContext context) {
     List<Widget> cards = [
       CardSeanceFiltre(
-          content: 'Card 1',
-          iconData: FontAwesomeIcons.personRunning,
-          cardColor: cardColor),
-      CardSeanceFiltre(
-          content: 'Card 2',
-          iconData: FontAwesomeIcons.dumbbell,
-          cardColor: cardColor),
+        content: 'Card 1',
+        iconData: FontAwesomeIcons.personRunning,
+        cardColor: cardColor,
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CardDetailsModale(
+                cardTitle: 'Card 1',
+                cardDetails: 'Détails de la Card 1',
+              );
+            },
+          );
+        },
+      ),
     ];
 
     if (selectedSport == 'Tout') {
@@ -106,7 +115,7 @@ class ContainerCardSport extends StatelessWidget {
             padding: EdgeInsets.only(top: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: _buildCards(),
+              children: _buildCards(context),
             ),
           ),
         ),

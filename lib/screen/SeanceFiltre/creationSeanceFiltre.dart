@@ -108,7 +108,10 @@ class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
   }
 
   Widget _buildTappableCard(String content, IconData icon, Color color) {
-    return GestureDetector(
+    return CardSeanceFiltre(
+      content: content,
+      iconData: icon,
+      cardColor: color,
       onTap: () {
         Navigator.push(
           context,
@@ -116,8 +119,6 @@ class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
               builder: (context) => SeanceCreate(category: content)),
         );
       },
-      child:
-          CardSeanceFiltre(content: content, iconData: icon, cardColor: color),
     );
   }
 }
