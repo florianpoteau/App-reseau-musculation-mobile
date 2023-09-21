@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
-import 'package:renconsport/services/GetEntrainements/fetchEntrainement.dart';
+import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 
