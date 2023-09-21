@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/models/exercice.dart';
 
 class SeanceCreate extends StatefulWidget {
   final String category;
+  final Exercice?
+      selectedExercice; // Utilisez le modèle Exercice pour stocker l'exercice sélectionné
 
-  SeanceCreate({required this.category});
+  SeanceCreate({required this.category, this.selectedExercice});
 
   @override
   _SeanceCreateState createState() => _SeanceCreateState();

@@ -18,31 +18,6 @@ class CardSeanceFiltre extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: 80,
-      padding: EdgeInsets.only(left: 6, right: 6),
-      child: Card(
-        color: cardColor,
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              FaIcon(
-                iconData,
-                size: 45,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 80),
-                child: Text(
-                  content,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 23,
-=======
     return GestureDetector(
       onTap: () {
         if (onTap != null) {
@@ -83,7 +58,6 @@ class CardSeanceFiltre extends StatelessWidget {
                       color: Colors.black,
                       fontSize: 28,
                     ),
->>>>>>> b5bb13b457248732b916269131f7b930b187f53c
                   ),
                 ),
               ],
