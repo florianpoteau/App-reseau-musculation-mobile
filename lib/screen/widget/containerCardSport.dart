@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ContainerCardSport extends StatelessWidget {
   final Color cardColor;
   final String? selectedSport;
+  final String textContent;
 
-  ContainerCardSport(
-      {this.cardColor = const Color(0xFF0091AD), this.selectedSport});
+  ContainerCardSport({
+    this.cardColor = const Color(0xFF0091AD),
+    this.selectedSport,
+    required this.textContent,
+  });
 
   List<Widget> _buildCards() {
     List<Widget> cards = [
       CardSeanceFiltre(
-          content: 'Card 1',
+          content: textContent,
           iconData: FontAwesomeIcons.running,
-          cardColor: cardColor),
-      CardSeanceFiltre(
-          content: 'Card 2',
-          iconData: FontAwesomeIcons.dumbbell,
           cardColor: cardColor),
     ];
 
@@ -84,24 +85,12 @@ class ContainerCardSport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.center,
-      child: Container(
-        width: 380,
-        height: 630,
-        margin: EdgeInsets.only(top: 20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: _buildCards(),
-            ),
-          ),
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: EdgeInsets.only(top: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: _buildCards(),
         ),
       ),
     );

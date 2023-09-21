@@ -32,10 +32,21 @@ class _SeancePublicState extends State<SeancePublic> {
         child: Column(
           children: [
             Expanded(
-                child: ContainerCardSport(
-              selectedSport: _selectedSport,
-              cardColor: CustomTheme.Colororange,
-            )),
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: 630,
+                        margin: EdgeInsets.only(top: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: ContainerCardSport(
+                          selectedSport: _selectedSport,
+                          cardColor: CustomTheme.Colororange,
+                          textContent: 'content',
+                        )))),
             FooterButton(showSearchButton: false),
           ],
         ),

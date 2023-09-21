@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/models/user.dart';
+import 'package:renconsport/services/GetEntrainements/fetchEntrainement.dart';
 import 'package:renconsport/services/GetUsers/fetchUser.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
@@ -16,12 +18,15 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  List<Entrainement> entrainements = [];
+  bool isLoading = true;
   String username = 'Chargement...';
 
   @override
   void initState() {
     super.initState();
     _loadUsername();
+    _loadEntrainements();
   }
 
   void _loadUsername() async {
@@ -29,6 +34,22 @@ class _HomepageState extends State<Homepage> {
     setState(() {
       username = data != null ? data['username'] : 'Utilisateur inconnu';
     });
+  }
+
+  Future<void> _loadEntrainements() async {
+    try {
+      final data = await GetEntrainements.fetchEntrainements();
+      setState(() {
+        entrainements = data.cast<Entrainement>();
+        isLoading = false;
+      });
+      print(entrainements.length);
+    } catch (e) {
+      print("Erreur lors du chargement des Entrainements: $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -88,19 +109,33 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
-      body: Container(
-        color: Color(0xFFEE7203),
-        child: Column(
-          children: [
-            Expanded(
-                child: ContainerCardSport(
-              cardColor: Color(0xFFEEB116),
-              selectedSport: null,
-            )),
-            FooterButton(),
-          ],
-        ),
-      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              color: Color(0xFFEE7203),
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                    width: 380,
+                    height: 630,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: ListView.builder(
+                      itemCount: entrainements.length,
+                      itemBuilder: (context, index) {
+                        final entrainement = entrainements[index];
+                        return ContainerCardSport(
+                          cardColor: Color(0xFFEEB116),
+                          selectedSport: null,
+                          textContent: entrainement.nom,
+                        );
+                      },
+                    )),
+              )),
+      bottomNavigationBar: FooterButton(),
     );
   }
 }

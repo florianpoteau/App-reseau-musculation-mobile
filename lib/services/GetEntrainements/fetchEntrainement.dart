@@ -1,33 +1,41 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/models/user.dart';
 import 'package:renconsport/services/ApiConfig/apiConfig.dart';
 import 'package:renconsport/services/headers/header.dart';
 
-class GetAllUsers {
-  static Future<List<User>> fetchUsers() async {
+class GetEntrainements {
+  static Future<List<Entrainement>> fetchEntrainements() async {
     final Dio _dio = Dio();
     final Header header = Header();
     try {
       final response = await _dio.get<Map<String, dynamic>>(
-        '${ApiConfig.baseUrl}/users',
+        '${ApiConfig.baseUrl}/entrainements',
         options: Options(headers: header.getHeaders()),
       );
 
       if (response.statusCode == 200) {
-        final responseData = response.data as Map<String, dynamic>;
-        final usersList = responseData['hydra:member'] as List<dynamic>;
+        final Map<String, dynamic> data = response.data as Map<String, dynamic>;
+        if (data != null && data['hydra:member'] is List<dynamic>) {
+          final entrainementsList = data['hydra:member'] as List<dynamic>;
 
-        final users = usersList.map((userJson) => User.json(userJson)).toList();
-        print(users);
+          final entrainements = entrainementsList
+              .map(
+                  (entrainementJson) => Entrainement.fromJson(entrainementJson))
+              .toList();
 
-        return users;
+          return entrainements;
+        } else {
+          throw Exception(
+              'La clé "hydra:member" n\'est pas une liste dans la réponse JSON.');
+        }
       } else {
-        throw Exception('Echec de chargement des utilisateurs');
+        throw Exception('Echec de chargement des entrainements');
       }
-    } catch (e) {
-      throw Exception('Erreur lors de la requête http : $e');
+    } catch (e, stackTrace) {
+      throw Exception('Erreur lors de la requête http : $stackTrace');
     }
   }
 }

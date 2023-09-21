@@ -6,8 +6,8 @@ class Entrainement {
   final int repetition;
   final int poids;
   final String note;
-  final String userid;
-  final String exerciceid;
+  // final List userid;
+  // final List exerciceid;
 
   Entrainement({
     required this.nom,
@@ -17,15 +17,15 @@ class Entrainement {
     required this.repetition,
     required this.poids,
     required this.note,
-    required this.userid,
-    required this.exerciceid,
+    // required this.userid,
+    // required this.exerciceid,
   });
 
   factory Entrainement.fromJson(Map<String, dynamic> json) {
-    final userIdJson = json['userid'] as Map<String, dynamic>;
-    final userId = userIdJson['@id'];
-    final exerciceIdJson = json['exerciceid'] as Map<String, dynamic>;
-    final exerciceId = exerciceIdJson['@id'];
+    // final userIdJson = json['userid'] as Map<String, dynamic>;
+    // final userId = userIdJson['@id'];
+    // final exerciceIdJson = json['exerciceid'] as Map<String, dynamic>;
+    // final exerciceId = exerciceIdJson['@id'];
 
     return Entrainement(
       nom: json['nom'],
@@ -35,8 +35,8 @@ class Entrainement {
       repetition: json['repetition'],
       poids: json['poids'],
       note: json['note'],
-      userid: userId,
-      exerciceid: exerciceId,
+      // userid: userId,
+      // exerciceid: exerciceId
     );
   }
 }
