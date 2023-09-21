@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:renconsport/models/exercice.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
-import 'package:renconsport/services/Exercices/getExercices.dart';
+import 'package:renconsport/screen/widget/Exercices/getExercices.dart';
 import 'package:renconsport/services/theme.dart';
 import '../SeanceCreate/seanceCreate.dart';
 
@@ -16,6 +16,7 @@ class CreationSeanceFiltre extends StatefulWidget {
 class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
   List<Exercice> exercices = [];
   bool isLoading = true;
+  Exercice? selectedExercice;
 
   @override
   void initState() {
@@ -118,16 +119,22 @@ class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
   }
 
   Widget _buildTappableCard(String content, IconData icon, Color color) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SeanceCreate(category: content)),
-        );
-      },
-      child:
-          CardSeanceFiltre(content: content, iconData: icon, cardColor: color),
-    );
+    return CardSeanceFiltre(
+        content: content,
+        iconData: icon,
+        cardColor: color,
+        onTap: () {
+          selectedExercice =
+              exercices.firstWhere((exercice) => exercice.genre == content);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SeanceCreate(
+                  category: content,
+                  selectedExercice: selectedExercice,
+                  exerciceid: selectedExercice!.id),
+            ),
+          );
+        });
   }
 }
