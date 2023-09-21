@@ -18,7 +18,7 @@ class ContainerCardSport extends StatelessWidget {
     List<Widget> cards = [
       CardSeanceFiltre(
           content: textContent,
-          iconData: FontAwesomeIcons.running,
+          iconData: FontAwesomeIcons.personRunning,
           cardColor: cardColor),
     ];
 
@@ -34,12 +34,14 @@ class ContainerCardSport extends StatelessWidget {
     } else if (selectedSport == 'Athlétisme') {
       return cards
           .where((card) =>
-              (card as CardSeanceFiltre).iconData == FontAwesomeIcons.running)
+              (card as CardSeanceFiltre).iconData ==
+              FontAwesomeIcons.personRunning)
           .toList();
     } else if (selectedSport == 'Natation') {
       return cards
           .where((card) =>
-              (card as CardSeanceFiltre).iconData == FontAwesomeIcons.swimmer)
+              (card as CardSeanceFiltre).iconData ==
+              FontAwesomeIcons.personSwimming)
           .toList();
     } else if (selectedSport == 'Football') {
       return cards
@@ -49,19 +51,19 @@ class ContainerCardSport extends StatelessWidget {
     } else if (selectedSport == 'Basket-ball') {
       return cards
           .where((card) =>
-              (card as CardSeanceFiltre).iconData ==
-              FontAwesomeIcons.baseballBall)
+              (card as CardSeanceFiltre).iconData == FontAwesomeIcons.baseball)
           .toList();
     } else if (selectedSport == 'Tennis') {
       return cards
           .where((card) =>
               (card as CardSeanceFiltre).iconData ==
-              FontAwesomeIcons.tableTennis)
+              FontAwesomeIcons.tableTennisPaddleBall)
           .toList();
     } else if (selectedSport == 'Cyclisme') {
       return cards
           .where((card) =>
-              (card as CardSeanceFiltre).iconData == FontAwesomeIcons.biking)
+              (card as CardSeanceFiltre).iconData ==
+              FontAwesomeIcons.personBiking)
           .toList();
     } else if (selectedSport == 'Arts martiaux') {
       return cards
@@ -77,6 +79,11 @@ class ContainerCardSport extends StatelessWidget {
       return cards
           .where((card) =>
               (card as CardSeanceFiltre).iconData == FontAwesomeIcons.music)
+          .toList();
+    } else if (selectedSport == 'Autres') {
+      return cards
+          .where((card) =>
+              (card as CardSeanceFiltre).iconData == FontAwesomeIcons.question)
           .toList();
     }
     return cards;

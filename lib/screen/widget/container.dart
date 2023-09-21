@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ContainerMessagerie extends StatelessWidget {
-  final String username; // Ajoutez le paramètre username
+  final String username;
 
   const ContainerMessagerie({Key? key, required this.username})
       : super(key: key);

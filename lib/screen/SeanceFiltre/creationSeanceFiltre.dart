@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
 import 'package:renconsport/services/theme.dart';
+import '../SeanceCreate/seanceCreate.dart';
 
 class CreationSeanceFiltre extends StatefulWidget {
   const CreationSeanceFiltre({super.key});
@@ -47,57 +48,76 @@ class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
 
   List<Widget> _buildCards() {
     List<Widget> cards = [
-      CardSeanceFiltre(
-        content: 'Musculation',
-        iconData: FontAwesomeIcons.dumbbell,
-        cardColor: Color.fromARGB(157, 255, 82, 82),
+      _buildTappableCard(
+        'Musculation',
+        FontAwesomeIcons.dumbbell,
+        Color.fromARGB(157, 255, 82, 82),
       ),
-      CardSeanceFiltre(
-        content: 'Athlétisme',
-        iconData: FontAwesomeIcons.running,
-        cardColor: CustomTheme.ColorBackButton,
+      _buildTappableCard(
+        'Athlétisme',
+        FontAwesomeIcons.personRunning,
+        Colors.cyanAccent,
       ),
-      CardSeanceFiltre(
-        content: 'Natation',
-        iconData: FontAwesomeIcons.swimmer,
-        cardColor: Colors.blueAccent,
+      _buildTappableCard(
+        'Natation',
+        FontAwesomeIcons.personSwimming,
+        Colors.blueAccent,
       ),
-      CardSeanceFiltre(
-        content: 'Football',
-        iconData: FontAwesomeIcons.futbol,
-        cardColor: Colors.green,
+      _buildTappableCard(
+        'Football',
+        FontAwesomeIcons.futbol,
+        Colors.green,
       ),
-      CardSeanceFiltre(
-        content: 'Basket-ball',
-        iconData: FontAwesomeIcons.baseballBall,
-        cardColor: Color.fromARGB(143, 189, 48, 214),
+      _buildTappableCard(
+        'Basket-ball',
+        FontAwesomeIcons.baseball,
+        Color.fromARGB(143, 189, 48, 214),
       ),
-      CardSeanceFiltre(
-        content: 'Tennis',
-        iconData: FontAwesomeIcons.tableTennis,
-        cardColor: Colors.yellow,
+      _buildTappableCard(
+        'Tennis',
+        FontAwesomeIcons.tableTennisPaddleBall,
+        Colors.yellow,
       ),
-      CardSeanceFiltre(
-        content: 'Cyclisme',
-        iconData: FontAwesomeIcons.biking,
-        cardColor: Color.fromARGB(157, 255, 82, 82),
+      _buildTappableCard(
+        'Cyclisme',
+        FontAwesomeIcons.personBiking,
+        Color.fromARGB(157, 255, 82, 82),
       ),
-      CardSeanceFiltre(
-        content: 'Arts martiaux',
-        iconData: FontAwesomeIcons.userNinja,
-        cardColor: Colors.amber,
+      _buildTappableCard(
+        'Arts martiaux',
+        FontAwesomeIcons.userNinja,
+        Colors.amber,
       ),
-      CardSeanceFiltre(
-        content: 'Yoga',
-        iconData: FontAwesomeIcons.peace,
-        cardColor: CustomTheme.ColorBackButton,
+      _buildTappableCard(
+        'Yoga',
+        FontAwesomeIcons.peace,
+        Colors.brown,
       ),
-      CardSeanceFiltre(
-        content: 'Danse',
-        iconData: FontAwesomeIcons.music,
-        cardColor: Colors.grey,
+      _buildTappableCard(
+        'Danse',
+        FontAwesomeIcons.music,
+        Colors.grey,
+      ),
+      _buildTappableCard(
+        'Autres',
+        FontAwesomeIcons.question,
+        Colors.pink,
       ),
     ];
     return cards;
+  }
+
+  Widget _buildTappableCard(String content, IconData icon, Color color) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SeanceCreate(category: content)),
+        );
+      },
+      child:
+          CardSeanceFiltre(content: content, iconData: icon, cardColor: color),
+    );
   }
 }

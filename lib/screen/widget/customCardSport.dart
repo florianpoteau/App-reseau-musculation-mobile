@@ -39,6 +39,5 @@ class CustomCardSport extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }
