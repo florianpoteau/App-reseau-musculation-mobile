@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import './Modale/modaleDetailCard.dart';
 
 class ContainerCardSport extends StatelessWidget {
   final Color cardColor;
@@ -14,12 +15,30 @@ class ContainerCardSport extends StatelessWidget {
     required this.textContent,
   });
 
-  List<Widget> _buildCards() {
+  List<Widget> _buildCards(BuildContext context) {
     List<Widget> cards = [
       CardSeanceFiltre(
+<<<<<<< HEAD
           content: textContent,
           iconData: FontAwesomeIcons.personRunning,
           cardColor: cardColor),
+=======
+        content: 'Card 1',
+        iconData: FontAwesomeIcons.personRunning,
+        cardColor: cardColor,
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CardDetailsModale(
+                cardTitle: 'Card 1',
+                cardDetails: 'Détails de la Card 1',
+              );
+            },
+          );
+        },
+      ),
+>>>>>>> b5bb13b457248732b916269131f7b930b187f53c
     ];
 
     if (selectedSport == 'Tout') {
@@ -92,12 +111,33 @@ class ContainerCardSport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
+<<<<<<< HEAD
       alignment: Alignment.topCenter,
       child: Padding(
         padding: EdgeInsets.only(top: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: _buildCards(),
+=======
+      alignment: Alignment.center,
+      child: Container(
+        width: 380,
+        height: 630,
+        margin: EdgeInsets.only(top: 20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: _buildCards(context),
+            ),
+          ),
+>>>>>>> b5bb13b457248732b916269131f7b930b187f53c
         ),
       ),
     );
