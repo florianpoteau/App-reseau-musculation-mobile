@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:renconsport/models/exercice.dart';
+import 'package:renconsport/services/Entrainements/postEntrainement.dart';
 
 class SeanceCreate extends StatefulWidget {
   final String category;
-  final Exercice?
-      selectedExercice; // Utilisez le modèle Exercice pour stocker l'exercice sélectionné
+  final Exercice? selectedExercice;
+  final int exerciceid;
 
-  SeanceCreate({required this.category, this.selectedExercice});
+  SeanceCreate(
+      {required this.category,
+      this.selectedExercice,
+      required this.exerciceid});
 
   @override
   _SeanceCreateState createState() => _SeanceCreateState();
@@ -17,6 +21,16 @@ class _SeanceCreateState extends State<SeanceCreate> {
   bool _isPrivate = true;
   String _selectedDuration = 'minutes';
   String _selectedWeight = 'kg';
+
+  // Controller
+  TextEditingController nom = TextEditingController();
+  TextEditingController serie = TextEditingController();
+  TextEditingController repetition = TextEditingController();
+  TextEditingController poids = TextEditingController();
+  TextEditingController duree = TextEditingController();
+  ValueNotifier<bool> isPrivateValue = ValueNotifier<bool>(true);
+
+  TextEditingController note = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +60,7 @@ class _SeanceCreateState extends State<SeanceCreate> {
                   child: ListView(
                     children: [
                       TextFormField(
+                        controller: nom,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(labelText: 'Exercices'),
                         validator: (value) {
@@ -56,6 +71,7 @@ class _SeanceCreateState extends State<SeanceCreate> {
                         },
                       ),
                       TextFormField(
+                        controller: serie,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(labelText: 'Séries'),
                         validator: (value) {
@@ -66,6 +82,7 @@ class _SeanceCreateState extends State<SeanceCreate> {
                         },
                       ),
                       TextFormField(
+                        controller: repetition,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(labelText: 'Répétitions'),
                         validator: (value) {
@@ -80,6 +97,7 @@ class _SeanceCreateState extends State<SeanceCreate> {
                           children: [
                             Expanded(
                               child: TextFormField(
+                                controller: poids,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(labelText: 'Poids'),
                                 keyboardType: TextInputType.number,
@@ -131,6 +149,7 @@ class _SeanceCreateState extends State<SeanceCreate> {
                         children: [
                           Expanded(
                             child: TextFormField(
+                              controller: duree,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(labelText: 'Durées'),
                               keyboardType: TextInputType.number,
@@ -175,20 +194,20 @@ class _SeanceCreateState extends State<SeanceCreate> {
                             children: [
                               Radio(
                                 value: true,
-                                groupValue: _isPrivate,
+                                groupValue: isPrivateValue.value,
                                 onChanged: (bool? value) {
                                   setState(() {
-                                    _isPrivate = value!;
+                                    isPrivateValue.value = value ?? false;
                                   });
                                 },
                               ),
                               Text('Oui'),
                               Radio(
                                 value: false,
-                                groupValue: _isPrivate,
+                                groupValue: isPrivateValue.value,
                                 onChanged: (bool? value) {
                                   setState(() {
-                                    _isPrivate = value!;
+                                    isPrivateValue.value = value ?? true;
                                   });
                                 },
                               ),
@@ -198,15 +217,53 @@ class _SeanceCreateState extends State<SeanceCreate> {
                         ],
                       ),
                       TextFormField(
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                              labelText: 'Détails des exercices')),
-                      TextFormField(
+                          controller: note,
                           style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(labelText: 'Notes')),
+                      SizedBox(height: 25),
                       ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {}
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            String nomValue = nom.text;
+                            int serieValue = int.parse(serie.text);
+                            int repetitionValue = int.parse(repetition.text);
+                            int poidsValue = int.parse(poids.text);
+                            int dureeValue = int.parse(duree.text);
+                            bool isPrivate = isPrivateValue.value;
+
+                            // Pour vérifier si c'est des minutes ou des heures
+                            String selectedDuration = _selectedDuration;
+                            String noteValue = note.text;
+
+                            try {
+                              await PostEntrainement.postEntrainement(
+                                nomValue,
+                                serieValue,
+                                repetitionValue,
+                                poidsValue,
+                                dureeValue,
+                                isPrivate,
+                                noteValue,
+                                widget.exerciceid,
+                                selectedDuration,
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Séance créée avec succès'),
+                                ),
+                              );
+                              nom.clear();
+                              serie.clear();
+                              repetition.clear();
+                              poids.clear();
+                              duree.clear();
+                              note.clear();
+                            } catch (e, stackTrace) {
+                              print(
+                                  'Erreur lors de la création de la séance : $e');
+                              print("stacktrace: $stackTrace");
+                            }
+                          }
                         },
                         child: Text('Créer la séance'),
                       ),

@@ -3,7 +3,7 @@ import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
 import 'package:renconsport/screen/widget/dropDown/filterDropDown.dart';
-import 'package:renconsport/services/GetEntrainements/fetchEntrainement.dart';
+import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/services/theme.dart';
 
 class SeancePublic extends StatefulWidget {

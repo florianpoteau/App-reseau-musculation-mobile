@@ -129,8 +129,11 @@ class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => SeanceCreate(
-                    category: content, selectedExercice: selectedExercice)),
+              builder: (context) => SeanceCreate(
+                  category: content,
+                  selectedExercice: selectedExercice,
+                  exerciceid: selectedExercice!.id),
+            ),
           );
         });
   }
