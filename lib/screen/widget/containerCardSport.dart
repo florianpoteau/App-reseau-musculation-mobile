@@ -13,7 +13,7 @@ class ContainerCardSport extends StatelessWidget {
     List<Widget> cards = [
       CardSeanceFiltre(
           content: 'Card 1',
-          iconData: FontAwesomeIcons.running,
+          iconData: FontAwesomeIcons.personRunning,
           cardColor: cardColor),
       CardSeanceFiltre(
           content: 'Card 2',
