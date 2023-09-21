@@ -98,7 +98,7 @@ class ContainerCardSport extends StatelessWidget {
         padding: EdgeInsets.only(top: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: _buildCards(),
+          children: _buildCards(context),
         ),
       ),
     );

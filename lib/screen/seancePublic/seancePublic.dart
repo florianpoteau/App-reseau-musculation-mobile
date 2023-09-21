@@ -5,7 +5,7 @@ import 'package:renconsport/screen/widget/containerCardSport.dart';
 import 'package:renconsport/screen/widget/dropDown/filterDropDown.dart';
 import 'package:renconsport/services/GetEntrainements/fetchEntrainement.dart';
 import 'package:renconsport/services/theme.dart';
-import 'package:flutter_marquee/flutter_marquee.dart';
+import 'package:marquee/marquee.dart';
 
 class SeancePublic extends StatefulWidget {
   const SeancePublic({super.key});
