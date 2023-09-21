@@ -16,7 +16,6 @@ class CreationSeanceFiltre extends StatefulWidget {
 class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
   List<Exercice> exercices = [];
   bool isLoading = true;
-  Exercice? selectedExercice;
 
   @override
   void initState() {
@@ -119,23 +118,16 @@ class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
   }
 
   Widget _buildTappableCard(String content, IconData icon, Color color) {
-    return CardSeanceFiltre(
-      content: content,
-      iconData: icon,
-      cardColor: color,
+    return GestureDetector(
       onTap: () {
-        selectedExercice =
-            exercices.firstWhere((exercice) => exercice.genre == content);
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SeanceCreate(
-                category: content,
-                selectedExercice: selectedExercice,
-                exerciceid: selectedExercice!.id),
-          ),
+              builder: (context) => SeanceCreate(category: content)),
         );
       },
+      child:
+          CardSeanceFiltre(content: content, iconData: icon, cardColor: color),
     );
   }
 }

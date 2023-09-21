@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
-import 'package:renconsport/screen/widget/Container/containerCardSport.dart';
+import 'package:renconsport/screen/widget/containerCardSport.dart';
 import 'package:renconsport/screen/widget/dropDown/filterDropDown.dart';
-import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
+import 'package:renconsport/services/GetEntrainements/fetchEntrainement.dart';
 import 'package:renconsport/services/theme.dart';
 
 class SeancePublic extends StatefulWidget {
@@ -84,13 +84,8 @@ class _SeancePublicState extends State<SeancePublic> {
                               final entrainement = entrainements[index];
                               return ContainerCardSport(
                                 selectedSport: _selectedSport,
-                                cardColor: Color(0xFFEEB116),
+                                cardColor: CustomTheme.Colororange,
                                 textContent: entrainement.nom,
-                                exerciceGenre: entrainement.exercicegenre,
-                                serie: entrainement.serie,
-                                repetition: entrainement.repetition,
-                                note: entrainement.note,
-                                poids: entrainement.poids,
                               );
                             },
                           )),
