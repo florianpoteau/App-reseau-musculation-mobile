@@ -60,7 +60,7 @@ class _InscriptionState extends State<Inscription> {
                             type: TextInputType.text,
                             floatingLabel: FloatingLabelBehavior.never,
                             minLength: 3,
-                            maxleight: 10,
+                            maxleight: 8,
                           ),
                           SizedBox(height: 25),
                           InputTexte(

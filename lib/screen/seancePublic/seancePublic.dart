@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
 import 'package:renconsport/screen/widget/dropDown/filterDropDown.dart';
+import 'package:renconsport/services/GetEntrainements/fetchEntrainement.dart';
 import 'package:renconsport/services/theme.dart';
 
 class SeancePublic extends StatefulWidget {
@@ -13,6 +15,38 @@ class SeancePublic extends StatefulWidget {
 
 class _SeancePublicState extends State<SeancePublic> {
   String? _selectedSport = 'Tout';
+  List<Entrainement> entrainements = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadEntrainement();
+  }
+
+// Dans la méthode _loadEntrainement, après avoir obtenu les données
+  Future<void> _loadEntrainement() async {
+    try {
+      final data = await GetEntrainements.fetchEntrainements();
+      final entrainementsList = data.cast<Entrainement>();
+
+      // Filtrer les entraînements publics
+      final entrainementsPublics = entrainementsList
+          .where((entrainement) => entrainement.ispublic)
+          .toList();
+
+      setState(() {
+        entrainements = entrainementsPublics;
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Erreur lors du chargement des Entrainements: $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,30 +61,40 @@ class _SeancePublicState extends State<SeancePublic> {
           },
         ),
       ),
-      body: Container(
-        color: Color(0xFFEE7203),
-        child: Column(
-          children: [
-            Expanded(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        height: 630,
-                        margin: EdgeInsets.only(top: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: ContainerCardSport(
-                          selectedSport: _selectedSport,
-                          cardColor: CustomTheme.Colororange,
-                          textContent: 'content',
-                        )))),
-            FooterButton(showSearchButton: false),
-          ],
-        ),
-      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              color: Color(0xFFEE7203),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 630,
+                          margin: EdgeInsets.only(top: 20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: ListView.builder(
+                            itemCount: entrainements.length,
+                            itemBuilder: (context, index) {
+                              final entrainement = entrainements[index];
+                              return ContainerCardSport(
+                                selectedSport: _selectedSport,
+                                cardColor: CustomTheme.Colororange,
+                                textContent: entrainement.nom,
+                              );
+                            },
+                          )),
+                    ),
+                  ),
+                  FooterButton(showSearchButton: false),
+                ],
+              ),
+            ),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:renconsport/models/exercice.dart';
+
 class Entrainement {
   final String nom;
   final DateTime datedebut;
@@ -6,8 +8,11 @@ class Entrainement {
   final int repetition;
   final int poids;
   final String note;
-  // final List userid;
-  // final List exerciceid;
+  final int userid;
+  final int exerciceid;
+  final bool ispublic;
+  final int? dureeminute;
+  final int? dureeheure;
 
   Entrainement({
     required this.nom,
@@ -17,15 +22,18 @@ class Entrainement {
     required this.repetition,
     required this.poids,
     required this.note,
-    // required this.userid,
-    // required this.exerciceid,
+    required this.userid,
+    required this.ispublic,
+    required this.exerciceid,
+    required this.dureeminute,
+    required this.dureeheure,
   });
 
   factory Entrainement.fromJson(Map<String, dynamic> json) {
-    // final userIdJson = json['userid'] as Map<String, dynamic>;
-    // final userId = userIdJson['@id'];
-    // final exerciceIdJson = json['exerciceid'] as Map<String, dynamic>;
-    // final exerciceId = exerciceIdJson['@id'];
+    final userIdJson = json['userid'] as Map<String, dynamic>;
+    final userId = userIdJson['id'] as int;
+    final exerciceIdJson = json['exerciceid'] as Map<String, dynamic>;
+    final exerciceId = exerciceIdJson['id'] as int;
 
     return Entrainement(
       nom: json['nom'],
@@ -35,8 +43,11 @@ class Entrainement {
       repetition: json['repetition'],
       poids: json['poids'],
       note: json['note'],
-      // userid: userId,
-      // exerciceid: exerciceId
+      userid: userId,
+      ispublic: json['ispublic'],
+      dureeminute: json['dureeminute'],
+      dureeheure: json['dureeheure'],
+      exerciceid: exerciceId,
     );
   }
 }
