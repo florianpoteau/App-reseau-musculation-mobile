@@ -135,18 +135,26 @@ class _HomepageState extends State<Homepage> {
                             itemBuilder: (context, index) {
                               final entrainement = entrainements[index];
 
-                              // Vérifiez si l'ID de l'utilisateur de l'entraînement correspond à celui du token
-                              if (tokenUserId != null &&
-                                  entrainement.userid.toString() ==
-                                      tokenUserId.toString()) {
+                              if (entrainement.ispublic) {
                                 return ContainerCardSport(
-                                  cardColor: Color(0xFFEEB116),
-                                  selectedSport: null,
                                   textContent: entrainement.nom,
+                                  cardColor: Color(0xFFEEB116),
+                                  exerciceGenre: entrainement.exercicegenre,
+                                  selectedSport: null,
+                                  serie: entrainement.serie,
+                                  repetition: entrainement.repetition,
+                                  note: entrainement.note,
                                 );
                               } else {
-                                // Si l'ID ne correspond pas, retournez un widget vide
-                                return SizedBox.shrink();
+                                return ContainerCardSport(
+                                  cardColor: Colors.cyan,
+                                  selectedSport: null,
+                                  textContent: entrainement.nom,
+                                  exerciceGenre: entrainement.exercicegenre,
+                                  serie: entrainement.serie,
+                                  repetition: entrainement.repetition,
+                                  note: entrainement.note,
+                                );
                               }
                             },
                           );
