@@ -52,15 +52,15 @@ class CardSeanceFiltre extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 FaIcon(
                   iconData,
                   size: 45,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 80),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
                   child: Text(
                     content,
                     style: TextStyle(
@@ -68,7 +68,7 @@ class CardSeanceFiltre extends StatelessWidget {
                       fontSize: 28,
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
