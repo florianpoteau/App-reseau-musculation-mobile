@@ -20,7 +20,7 @@ class Entrainement {
     this.datefin,
     required this.serie,
     required this.repetition,
-    required this.poids,
+    this.poids,
     required this.note,
     required this.userid,
     required this.ispublic,
