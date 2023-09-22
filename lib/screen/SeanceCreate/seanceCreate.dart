@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:renconsport/models/exercice.dart';
+import 'package:renconsport/screen/Homepage/homepage.dart';
 import 'package:renconsport/services/Entrainements/postEntrainement.dart';
 
 class SeanceCreate extends StatefulWidget {
@@ -102,12 +103,13 @@ class _SeanceCreateState extends State<SeanceCreate> {
                                 decoration: InputDecoration(labelText: 'Poids'),
                                 keyboardType: TextInputType.number,
                                 validator: (value) {
-                                  if (value == null || value.isEmpty) {
+                                  if (_shouldShowPoidsField() &&
+                                      (value == null || value.isEmpty)) {
                                     return 'Veuillez remplir ce champ';
                                   }
 
                                   if (!RegExp(r'^\d+(\.\d+)?$')
-                                      .hasMatch(value)) {
+                                      .hasMatch(value ?? '')) {
                                     return 'Veuillez entrer un nombre valide';
                                   }
                                   return null;
@@ -227,9 +229,17 @@ class _SeanceCreateState extends State<SeanceCreate> {
                             String nomValue = nom.text;
                             int serieValue = int.parse(serie.text);
                             int repetitionValue = int.parse(repetition.text);
-                            int poidsValue = int.parse(poids.text);
+                            int poidsValue;
+                            if (_shouldShowPoidsField() &&
+                                poids.text.isNotEmpty) {
+                              poidsValue = int.parse(poids.text);
+                            } else {
+                              poidsValue =
+                                  0; // Ou une autre valeur par défaut appropriée
+                            }
+
                             int dureeValue = int.parse(duree.text);
-                            bool isPrivate = isPrivateValue.value;
+                            bool isPrivate = !isPrivateValue.value;
 
                             // Pour vérifier si c'est des minutes ou des heures
                             String selectedDuration = _selectedDuration;
@@ -250,6 +260,13 @@ class _SeanceCreateState extends State<SeanceCreate> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('Séance créée avec succès'),
+                                ),
+                              );
+
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Homepage(), // Remplace l'écran actuel par Homepage
                                 ),
                               );
                               nom.clear();
