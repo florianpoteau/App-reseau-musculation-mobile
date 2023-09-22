@@ -10,9 +10,6 @@ class CardSeanceFiltre extends StatelessWidget {
   final int? serie;
   final int? repetition;
   final String? note;
-  final int? poids;
-  final String? exerciceGenre;
-  final bool? ispublic;
 
   CardSeanceFiltre({
     required this.content,
@@ -23,9 +20,6 @@ class CardSeanceFiltre extends StatelessWidget {
     this.repetition,
     this.note,
     Key? key,
-    this.poids,
-    this.exerciceGenre,
-    this.ispublic,
   }) : super(key: key);
 
   @override
@@ -39,14 +33,12 @@ class CardSeanceFiltre extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return CardDetailsModale(
-                  cardTitle: content,
-                  cardDetails: "Détails de $content",
-                  serie: serie,
-                  repetition: repetition,
-                  note: note,
-                  poids: poids,
-                  exerciceGenre: exerciceGenre,
-                  ispublic: ispublic);
+                cardTitle: content,
+                cardDetails: "Détails de $content",
+                serie: serie,
+                repetition: repetition,
+                note: note,
+              );
             },
           );
         }
@@ -67,18 +59,13 @@ class CardSeanceFiltre extends StatelessWidget {
                   iconData,
                   size: 45,
                 ),
-                // Enveloppez le Text dans un SingleChildScrollView avec une largeur fixe
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    width:
-                        MediaQuery.of(context).size.width * 0.5, // Largeur fixe
-                    child: Text(
-                      content,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 28,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 80),
+                  child: Text(
+                    content,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 28,
                     ),
                   ),
                 ),

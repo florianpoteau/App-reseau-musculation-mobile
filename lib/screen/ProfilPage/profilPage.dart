@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/user.dart';
 import 'package:renconsport/services/GetUsers/fetchUser.dart';
-import 'package:renconsport/services/Router/CustomRouter.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 
 import '../widget/Profil/containerProfil.dart';
@@ -92,21 +90,6 @@ class _ProfilPageState extends State<ProfilPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          ElevatedButton(
-                            onPressed: () async {
-                              // Supprimer le token
-                              final storage = FlutterSecureStorage();
-                              await storage.delete(key: 'token');
-
-                              // Naviguer vers la page de connexion
-                              Navigator.pushReplacementNamed(
-                                  context, CustomRouter.connexion);
-                            },
-                            child: Text("Déconnexion"),
-                          )
                         ],
                       ),
                     ),
