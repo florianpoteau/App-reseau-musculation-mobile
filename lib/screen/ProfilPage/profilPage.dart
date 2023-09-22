@@ -26,77 +26,79 @@ class _ProfilPageState extends State<ProfilPage> {
           ),
         ),
       ),
-      body: Container(
-        color: Color(0xFFEE7203),
-        child: Center(
-          child: FutureBuilder<Map<String, dynamic>?>(
-            future: GetToken.getToken(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                final data = snapshot.data as Map<String, dynamic>?;
+      body: SingleChildScrollView(
+        child: Container(
+          color: Color(0xFFEE7203),
+          child: Center(
+            child: FutureBuilder<Map<String, dynamic>?>(
+              future: GetToken.getToken(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  final data = snapshot.data as Map<String, dynamic>?;
 
-                final username =
-                    data != null ? data['username'] : 'Utilisateur inconnu';
-                final userEmail =
-                    data != null ? data['email'] : 'E-mail inconnu';
+                  final username =
+                      data != null ? data['username'] : 'Utilisateur inconnu';
+                  final userEmail =
+                      data != null ? data['email'] : 'E-mail inconnu';
 
-                return ContainerProfil(
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 20),
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.grey[300],
-                              radius: 40,
+                  return ContainerProfil(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 20),
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.grey[300],
+                                radius: 40,
+                              ),
+                              SizedBox(width: 20),
+                              Text(
+                                '${username.toString()}',
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            'Email : ${userEmail.toString()}',
+                            style: TextStyle(
+                              fontSize: 24,
                             ),
-                            SizedBox(width: 20),
-                            Text(
-                              '${username.toString()}',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: 'Note :',
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  border: InputBorder.none,
+                                ),
+                                maxLines: 3,
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          'Email : ${userEmail.toString()}',
-                          style: TextStyle(
-                            fontSize: 24,
                           ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Note :',
-                                hintStyle: TextStyle(color: Colors.grey),
-                                border: InputBorder.none,
-                              ),
-                              maxLines: 3,
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              } else {
-                return Text("Chargement...");
-              }
-            },
+                  );
+                } else {
+                  return Text("Chargement...");
+                }
+              },
+            ),
           ),
         ),
       ),

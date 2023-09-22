@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
-import 'package:renconsport/services/GetEntrainements/fetchEntrainement.dart';
+import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 import '../widget/marqueeDefilementTexte.dart';
@@ -128,16 +128,27 @@ class _HomepageState extends State<Homepage> {
                             itemCount: entrainements.length,
                             itemBuilder: (context, index) {
                               final entrainement = entrainements[index];
-                              if (tokenUserId != null &&
-                                  entrainement.userid.toString() ==
-                                      tokenUserId.toString()) {
+
+                              if (entrainement.ispublic) {
                                 return ContainerCardSport(
-                                  cardColor: Color(0xFFEEB116),
-                                  selectedSport: null,
                                   textContent: entrainement.nom,
+                                  cardColor: Color(0xFFEEB116),
+                                  exerciceGenre: entrainement.exercicegenre,
+                                  selectedSport: null,
+                                  serie: entrainement.serie,
+                                  repetition: entrainement.repetition,
+                                  note: entrainement.note,
                                 );
                               } else {
-                                return SizedBox.shrink();
+                                return ContainerCardSport(
+                                  cardColor: Colors.cyan,
+                                  selectedSport: null,
+                                  textContent: entrainement.nom,
+                                  exerciceGenre: entrainement.exercicegenre,
+                                  serie: entrainement.serie,
+                                  repetition: entrainement.repetition,
+                                  note: entrainement.note,
+                                );
                               }
                             },
                           );

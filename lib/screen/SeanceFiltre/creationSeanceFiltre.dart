@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:renconsport/models/exercice.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
-import 'package:renconsport/screen/widget/Exercices/getExercices.dart';
+import 'package:renconsport/services/Exercices/getExercices.dart';
 import 'package:renconsport/services/theme.dart';
 import '../SeanceCreate/seanceCreate.dart';
 import '../widget/marqueeDefilementTexte.dart';
@@ -121,21 +121,22 @@ class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
 
   Widget _buildTappableCard(String content, IconData icon, Color color) {
     return CardSeanceFiltre(
-        contentString: content,
-        contentWidget: ScrollingText(
-            text: content,
-            style: TextStyle(fontSize: 28)), // Utilisez ScrollingText ici
-        iconData: icon,
-        cardColor: color,
-        onTap: () {
-          selectedExercice =
-              exercices.firstWhere((exercice) => exercice.genre == content);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SeanceCreate(
-                    category: content, selectedExercice: selectedExercice)),
-          );
-        });
+      content: content,
+      iconData: icon,
+      cardColor: color,
+      onTap: () {
+        selectedExercice =
+            exercices.firstWhere((exercice) => exercice.genre == content);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SeanceCreate(
+                category: content,
+                selectedExercice: selectedExercice,
+                exerciceid: selectedExercice!.id),
+          ),
+        );
+      },
+    );
   }
 }
