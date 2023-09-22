@@ -3,6 +3,7 @@ import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './Modale/modaleDetailCard.dart';
+import '../widget/marqueeDefilementTexte.dart';
 
 class ContainerCardSport extends StatelessWidget {
   final Color cardColor;
@@ -18,9 +19,17 @@ class ContainerCardSport extends StatelessWidget {
   List<Widget> _buildCards(BuildContext context) {
     List<Widget> cards = [
       CardSeanceFiltre(
-          content: textContent,
-          iconData: FontAwesomeIcons.personRunning,
-          cardColor: cardColor),
+        contentString: textContent,
+        contentWidget: ScrollingText(
+          text: textContent,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 28,
+          ),
+        ),
+        iconData: FontAwesomeIcons.personRunning,
+        cardColor: cardColor,
+      ),
     ];
 
     if (selectedSport == 'Tout') {

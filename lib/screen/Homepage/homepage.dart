@@ -6,6 +6,7 @@ import 'package:renconsport/screen/widget/containerCardSport.dart';
 import 'package:renconsport/services/GetEntrainements/fetchEntrainement.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
+import '../widget/marqueeDefilementTexte.dart';
 
 import '../ProfilPage/profilPage.dart';
 
@@ -44,7 +45,7 @@ class _HomepageState extends State<Homepage> {
       });
     } catch (e, stackTrace) {
       print("Erreur lors du chargement des Entrainements: $e");
-      print("Stack trace : ${stackTrace}"); // Afficher la trace de la pile
+      print("Stack trace : ${stackTrace}");
       setState(() {
         isLoading = false;
       });
@@ -55,59 +56,52 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF293548),
-        toolbarHeight: 100.0,
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FutureBuilder<Map<String, dynamic>?>(
-              future: GetToken.getToken(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  final data = snapshot.data as Map<String, dynamic>?;
-                  final username =
-                      data != null ? data['username'] : 'Utilisateur inconnu';
-                  if (username != null && username.isNotEmpty) {
-                    return Text(
-                      "Bonjour ${username.toString()}",
-                      style: TextStyle(
-                        fontSize: 28,
-                      ),
-                    );
-                  } else {
-                    return Text(
-                      'Nom d\'utilisateur vide ou null',
-                      style: TextStyle(
-                        fontSize: 28,
-                      ),
-                    );
-                  }
-                } else {
-                  return Text(
-                    'Chargement...',
-                    style: TextStyle(
-                      fontSize: 28,
-                    ),
-                  );
-                }
-              },
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfilPage()),
-                );
-              },
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 30,
+          backgroundColor: Color(0xFF293548),
+          toolbarHeight: 100.0,
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: FutureBuilder<Map<String, dynamic>?>(
+                  future: GetToken.getToken(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      final data = snapshot.data as Map<String, dynamic>?;
+                      final username = data != null
+                          ? data['username']
+                          : 'Utilisateur inconnu';
+                      if (username != null && username.isNotEmpty) {
+                        return ScrollingText(
+                            text: "Bonjour ${username.toString()}",
+                            style: TextStyle(fontSize: 28));
+                      } else {
+                        return ScrollingText(
+                            text: 'Nom d\'utilisateur vide ou null',
+                            style: TextStyle(fontSize: 28));
+                      }
+                    } else {
+                      return ScrollingText(
+                          text: 'Chargement...',
+                          style: TextStyle(fontSize: 28));
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilPage()),
+                  );
+                },
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 30,
+                ),
+              ),
+            ],
+          )),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : Container(
@@ -134,8 +128,6 @@ class _HomepageState extends State<Homepage> {
                             itemCount: entrainements.length,
                             itemBuilder: (context, index) {
                               final entrainement = entrainements[index];
-
-                              // Vérifiez si l'ID de l'utilisateur de l'entraînement correspond à celui du token
                               if (tokenUserId != null &&
                                   entrainement.userid.toString() ==
                                       tokenUserId.toString()) {
@@ -145,13 +137,11 @@ class _HomepageState extends State<Homepage> {
                                   textContent: entrainement.nom,
                                 );
                               } else {
-                                // Si l'ID ne correspond pas, retournez un widget vide
                                 return SizedBox.shrink();
                               }
                             },
                           );
                         } else {
-                          // Gérer le cas où le token n'est pas valide ou n'existe pas
                           return Text("");
                         }
                       } else {

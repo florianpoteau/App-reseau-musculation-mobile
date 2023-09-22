@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widget/marqueeDefilementTexte.dart';
 
 class ContainerMessagerie extends StatelessWidget {
   final String username;
@@ -17,9 +18,11 @@ class ContainerMessagerie extends StatelessWidget {
             size: 80,
           ),
           SizedBox(width: 15),
-          Text(
-            username, // Utilisez le nom d'utilisateur passé en paramètre
-            style: TextStyle(fontSize: 30),
+          Expanded(
+            child: ScrollingText(
+              text: username,
+              style: TextStyle(fontSize: 30),
+            ),
           ),
         ],
       ),

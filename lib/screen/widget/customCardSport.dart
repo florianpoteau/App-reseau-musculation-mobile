@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:renconsport/models/user.dart';
 
 class CustomCardSport extends StatelessWidget {
-  const CustomCardSport({super.key, required String content});
+  const CustomCardSport({Key? key, required this.content}) : super(key: key);
+
+  final String content;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class CustomCardSport extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 80),
                 child: Text(
-                  "User",
+                  content,
                   style: TextStyle(
                     fontSize: 25,
                   ),

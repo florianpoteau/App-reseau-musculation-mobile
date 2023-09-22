@@ -5,6 +5,7 @@ import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
 import 'package:renconsport/screen/widget/Exercices/getExercices.dart';
 import 'package:renconsport/services/theme.dart';
 import '../SeanceCreate/seanceCreate.dart';
+import '../widget/marqueeDefilementTexte.dart';
 
 class CreationSeanceFiltre extends StatefulWidget {
   const CreationSeanceFiltre({super.key});
@@ -120,7 +121,10 @@ class _CreationSeanceFiltreState extends State<CreationSeanceFiltre> {
 
   Widget _buildTappableCard(String content, IconData icon, Color color) {
     return CardSeanceFiltre(
-        content: content,
+        contentString: content,
+        contentWidget: ScrollingText(
+            text: content,
+            style: TextStyle(fontSize: 28)), // Utilisez ScrollingText ici
         iconData: icon,
         cardColor: color,
         onTap: () {
