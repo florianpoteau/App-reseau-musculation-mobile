@@ -7,12 +7,18 @@ class CardSeanceFiltre extends StatelessWidget {
   final IconData iconData;
   final Color cardColor;
   final VoidCallback? onTap;
+  final int? serie;
+  final int? repetition;
+  final String? note;
 
   CardSeanceFiltre({
     required this.content,
     required this.iconData,
     required this.cardColor,
     this.onTap,
+    this.serie,
+    this.repetition,
+    this.note,
     Key? key,
   }) : super(key: key);
 
@@ -29,6 +35,9 @@ class CardSeanceFiltre extends StatelessWidget {
               return CardDetailsModale(
                 cardTitle: content,
                 cardDetails: "Détails de $content",
+                serie: serie,
+                repetition: repetition,
+                note: note,
               );
             },
           );

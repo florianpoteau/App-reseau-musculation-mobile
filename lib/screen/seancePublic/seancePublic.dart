@@ -84,8 +84,12 @@ class _SeancePublicState extends State<SeancePublic> {
                               final entrainement = entrainements[index];
                               return ContainerCardSport(
                                 selectedSport: _selectedSport,
-                                cardColor: CustomTheme.Colororange,
+                                cardColor: Color(0xFFEEB116),
                                 textContent: entrainement.nom,
+                                exerciceGenre: entrainement.exercicegenre,
+                                serie: entrainement.serie,
+                                repetition: entrainement.repetition,
+                                note: entrainement.note,
                               );
                             },
                           )),
