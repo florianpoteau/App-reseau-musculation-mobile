@@ -73,6 +73,7 @@ class _SeanceCreateState extends State<SeanceCreate> {
                       ),
                       TextFormField(
                         controller: serie,
+                        keyboardType: TextInputType.number,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(labelText: 'Séries'),
                         validator: (value) {
@@ -84,6 +85,7 @@ class _SeanceCreateState extends State<SeanceCreate> {
                       ),
                       TextFormField(
                         controller: repetition,
+                        keyboardType: TextInputType.number,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(labelText: 'Répétitions'),
                         validator: (value) {

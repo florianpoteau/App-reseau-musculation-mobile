@@ -38,6 +38,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   jwt_decoder: ^2.0.1
   font_awesome_flutter: ^10.5.0
+  mysql1: ^0.20.0
 
 dev_dependencies:
   flutter_test:

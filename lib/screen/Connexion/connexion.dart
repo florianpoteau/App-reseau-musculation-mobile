@@ -6,6 +6,7 @@ import 'package:renconsport/models/session.dart';
 import 'package:renconsport/screen/widget/Bouton/boutonIdentificationUser.dart';
 import 'package:renconsport/screen/widget/inputTexte.dart';
 import 'package:renconsport/screen/Inscription/inscription.dart';
+import 'package:renconsport/services/Router/CustomRouter.dart';
 import 'package:renconsport/services/authToken/fetchToken.dart';
 import 'package:renconsport/services/theme.dart';
 import 'package:renconsport/screen/Homepage/homepage.dart';
@@ -104,12 +105,8 @@ class _HomePageState extends State<Connexion> {
                                       final tokens = await _futureTokens;
                                       print(tokens);
                                       if (tokens != null) {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Homepage(),
-                                          ),
-                                        );
+                                        Navigator.pushReplacementNamed(
+                                            context, CustomRouter.homepage);
                                       }
                                     } catch (e) {
                                       print(e);
