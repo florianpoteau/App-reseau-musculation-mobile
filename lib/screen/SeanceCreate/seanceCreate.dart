@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:renconsport/models/exercice.dart';
 import 'package:renconsport/screen/Homepage/homepage.dart';
 import 'package:renconsport/services/Entrainements/postEntrainement.dart';
+import 'package:renconsport/services/Router/CustomRouter.dart';
 
 class SeanceCreate extends StatefulWidget {
   final String category;
@@ -265,12 +266,8 @@ class _SeanceCreateState extends State<SeanceCreate> {
                                 ),
                               );
 
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      Homepage(), // Remplace l'écran actuel par Homepage
-                                ),
-                              );
+                              Navigator.of(context)
+                                  .pushNamed(CustomRouter.homepage);
                               nom.clear();
                               serie.clear();
                               repetition.clear();
