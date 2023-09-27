@@ -12,7 +12,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Utilisez la fonction getToken() pour vérifier la présence d'un token
+    // Vérifier la présence d'un token
     return FutureBuilder<Map<String, dynamic>?>(
       future: GetToken.getToken(),
       builder: (context, snapshot) {
