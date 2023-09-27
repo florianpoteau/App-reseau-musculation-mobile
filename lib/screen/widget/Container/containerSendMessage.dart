@@ -18,21 +18,49 @@ class _ContainerSendMessageState extends State<ContainerSendMessage> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius:
-          BorderRadius.circular(10.0), // Ajoutez ici le rayon souhaité
+      borderRadius: BorderRadius.circular(10.0),
       child: Container(
         padding: EdgeInsets.all(20),
         height: MediaQuery.of(context).size.height * 0.7,
         width: MediaQuery.of(context).size.width * 0.9,
         color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment:
+              CrossAxisAlignment.start, // Alignez le texte en haut à gauche
           children: [
+            Text(
+              "Messages", // Votre texte en haut du container
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Message 2",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: SingleChildScrollView(
+                  reverse: true, // Faites défiler les messages de haut en bas
+                  child: Column(
+                    children: [
+                      // Vous pouvez afficher les messages ici (par exemple, avec un ListView.builder)
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10), // Espacement entre le texte et l'input
             Container(
               child: TextFormField(
                 controller: _messageController,
                 decoration: InputDecoration(
-                  labelText: "écrire un message",
+                  labelText: "Écrire un message",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -66,10 +94,8 @@ class _ContainerSendMessageState extends State<ContainerSendMessage> {
         );
 
         if (result == "OK") {
-          // Le message a été envoyé avec succès, vous pouvez ajouter une logique ici si nécessaire
           _messageController.clear(); // Effacer le champ de texte après l'envoi
         } else {
-          // Gérer les erreurs éventuelles ici
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Erreur lors de l'envoi du message"),
@@ -86,11 +112,5 @@ class _ContainerSendMessageState extends State<ContainerSendMessage> {
         );
       }
     }
-  }
-
-  @override
-  void dispose() {
-    _messageController.dispose();
-    super.dispose();
   }
 }
