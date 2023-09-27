@@ -4,21 +4,15 @@ import 'package:renconsport/screen/Homepage/homepage.dart';
 import 'package:renconsport/services/Router/CustomRouter.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/services/theme.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Vérifier la présence d'un token
+    // Utilisez la fonction getToken() pour vérifier la présence d'un token
     return FutureBuilder<Map<String, dynamic>?>(
       future: GetToken.getToken(),
       builder: (context, snapshot) {

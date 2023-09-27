@@ -10,6 +10,9 @@ class CardSeanceFiltre extends StatelessWidget {
   final int? serie;
   final int? repetition;
   final String? note;
+  final int? poids;
+  final String? exerciceGenre;
+  final bool? ispublic;
 
   CardSeanceFiltre({
     required this.content,
@@ -20,6 +23,9 @@ class CardSeanceFiltre extends StatelessWidget {
     this.repetition,
     this.note,
     Key? key,
+    this.poids,
+    this.exerciceGenre,
+    this.ispublic,
   }) : super(key: key);
 
   @override
@@ -33,12 +39,14 @@ class CardSeanceFiltre extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return CardDetailsModale(
-                cardTitle: content,
-                cardDetails: "Détails de $content",
-                serie: serie,
-                repetition: repetition,
-                note: note,
-              );
+                  cardTitle: content,
+                  cardDetails: "Détails de $content",
+                  serie: serie,
+                  repetition: repetition,
+                  note: note,
+                  poids: poids,
+                  exerciceGenre: exerciceGenre,
+                  ispublic: ispublic);
             },
           );
         }
@@ -52,23 +60,28 @@ class CardSeanceFiltre extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 FaIcon(
                   iconData,
                   size: 45,
                 ),
+                // Enveloppez le Text dans un SingleChildScrollView avec une largeur fixe
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Text(
-                    content,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 28,
+                  child: Container(
+                    width:
+                        MediaQuery.of(context).size.width * 0.5, // Largeur fixe
+                    child: Text(
+                      content,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 28,
+                      ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

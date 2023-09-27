@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
 import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
@@ -129,7 +127,6 @@ class _HomepageState extends State<Homepage> {
                           ConnectionState.done) {
                         final tokenData = tokenSnapshot.data;
                         if (tokenData != null) {
-                          final tokenUserId = tokenData['id'];
                           return ListView.builder(
                             itemCount: entrainements.length,
                             itemBuilder: (context, index) {
@@ -144,6 +141,8 @@ class _HomepageState extends State<Homepage> {
                                   serie: entrainement.serie,
                                   repetition: entrainement.repetition,
                                   note: entrainement.note,
+                                  poids: entrainement.poids,
+                                  ispublic: entrainement.ispublic,
                                 );
                               } else {
                                 return ContainerCardSport(
@@ -154,6 +153,8 @@ class _HomepageState extends State<Homepage> {
                                   serie: entrainement.serie,
                                   repetition: entrainement.repetition,
                                   note: entrainement.note,
+                                  poids: entrainement.poids,
+                                  ispublic: entrainement.ispublic,
                                 );
                               }
                             },

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:renconsport/screen/Messagerie/messagerie.dart';
-import 'package:renconsport/services/Router/CustomRouter.dart';
 
 class ModalUser extends StatelessWidget {
   final String username;
   final int age;
-  final int? id;
 
-  const ModalUser(
-      {Key? key, required this.username, required this.age, this.id});
+  const ModalUser({Key? key, required this.username, required this.age});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +25,8 @@ class ModalUser extends StatelessWidget {
             TextButton(
               child: Text("Contacter"),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Messagerie(username: username, id: id)));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Messagerie()));
               },
             ),
             TextButton(

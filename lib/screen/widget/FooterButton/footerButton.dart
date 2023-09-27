@@ -4,7 +4,6 @@ import 'package:renconsport/screen/Messagerie/userList.dart';
 import 'package:renconsport/screen/SeanceFiltre/creationSeanceFiltre.dart';
 import 'package:renconsport/screen/seancePublic/seancePublic.dart';
 import 'package:renconsport/screen/widget/FooterButton/circleButton.dart';
-import 'package:renconsport/services/Router/CustomRouter.dart';
 
 class FooterButton extends StatelessWidget {
   final bool showSearchButton;
@@ -23,21 +22,30 @@ class FooterButton extends StatelessWidget {
               icon: FontAwesomeIcons.search,
               iconColor: Colors.black,
               onPressed: () {
-                Navigator.pushNamed(context, CustomRouter.seancePublic);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SeancePublic()),
+                );
               },
             ),
           CircleButton(
             icon: FontAwesomeIcons.plus,
             iconColor: Colors.black,
             onPressed: () {
-              Navigator.pushNamed(context, CustomRouter.creationSeanceFiltre);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CreationSeanceFiltre()),
+              );
             },
           ),
           CircleButton(
             icon: FontAwesomeIcons.comment,
             iconColor: Colors.black,
             onPressed: () {
-              Navigator.pushNamed(context, CustomRouter.usersList);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UserList()),
+              );
             },
           ),
         ],
