@@ -3,6 +3,7 @@ import 'package:renconsport/screen/widget/Container/containerSendMessage.dart';
 import 'package:renconsport/screen/widget/Container/containerUserMessage.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/services/theme.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Messagerie extends StatelessWidget {
   const Messagerie({super.key, required this.username, this.id});
@@ -22,13 +23,16 @@ class Messagerie extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done) {
               final data = snapshot.data as Map<String, dynamic>?;
 
-              final id = data != null ? data['id'] : 'Utilisateur inconnu';
-              print(id);
+              final id_user = data != null ? data['id'] : 'Utilisateur inconnu';
+              print(id_user);
               return ListView(
                 reverse: true, // Place le contenu en bas de la vue
                 padding: EdgeInsets.all(16.0),
                 children: [
-                  ContainerSendMessage(id: id),
+                  ContainerSendMessage(
+                    idToken: id_user,
+                    idDestinataire: id,
+                  ),
                   SizedBox(
                     height: 30,
                   ),
