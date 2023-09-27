@@ -4,9 +4,10 @@ import 'package:renconsport/screen/widget/Modale/modalUser.dart';
 class ContainerMessagerie extends StatelessWidget {
   final String username;
   final int age;
+  final int? id;
 
   const ContainerMessagerie(
-      {Key? key, required this.username, required this.age})
+      {Key? key, required this.username, required this.age, this.id})
       : super(key: key);
 
   @override
@@ -17,6 +18,7 @@ class ContainerMessagerie extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return ModalUser(
+              id: id,
               username: username,
               age: age,
             );
