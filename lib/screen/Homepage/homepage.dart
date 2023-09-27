@@ -18,6 +18,7 @@ class _HomepageState extends State<Homepage> {
   List<Entrainement> entrainements = [];
   bool isLoading = true;
   String username = 'Chargement...';
+  int? userId;
 
   @override
   void initState() {
@@ -30,14 +31,21 @@ class _HomepageState extends State<Homepage> {
     final data = await GetToken.getToken();
     setState(() {
       username = data != null ? data['username'] : 'Utilisateur inconnu';
+      userId = data != null
+          ? data['id']
+          : null; // Récupération de l'ID de l'utilisateur
     });
   }
 
   Future<void> _loadEntrainements() async {
     try {
       final data = await GetEntrainements.fetchEntrainements();
+
       setState(() {
-        entrainements = data.cast<Entrainement>();
+        // Filtrer les entraînements pour ne conserver que ceux de l'utilisateur actuel
+        entrainements = data
+            .where((entrainement) => entrainement.userid == userId)
+            .toList();
         isLoading = false;
       });
     } catch (e, stackTrace) {
