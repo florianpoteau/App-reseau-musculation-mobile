@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:renconsport/models/entrainement.dart';
-import 'package:renconsport/models/exercice.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
-import './Modale/modaleDetailCard.dart';
 
 class ContainerCardSport extends StatelessWidget {
   final Color cardColor;
