@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:renconsport/models/user.dart';
 import 'package:renconsport/screen/widget/Bouton/boutonAddUserSeance.dart';
-import 'package:renconsport/screen/widget/containerMessagerie.dart';
+import 'package:renconsport/screen/widget/Container/containerMessagerie.dart';
 import 'package:renconsport/services/GetUsers/fetchUser.dart';
 import 'package:renconsport/services/theme.dart';
 
@@ -64,6 +64,7 @@ class _MessagerieState extends State<UserList> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ContainerMessagerie(
+                                  id: user.id,
                                   username: user.username,
                                   age: user.age,
                                 ),

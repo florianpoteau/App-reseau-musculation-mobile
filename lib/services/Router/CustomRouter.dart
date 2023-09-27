@@ -17,7 +17,6 @@ class CustomRouter {
   static const String usersList = "/userslist";
   static const String creationSeanceFiltre = "/creationseance";
   static const String seancePublic = "/seancepublic";
-  static const String messagerie = "/messagerie";
 
   static Route<dynamic>? router(RouteSettings settings) {
     switch (settings.name) {
@@ -39,8 +38,6 @@ class CustomRouter {
         return MaterialPageRoute(builder: (context) => CreationSeanceFiltre());
       case seancePublic:
         return MaterialPageRoute(builder: (context) => SeancePublic());
-      case messagerie:
-        return MaterialPageRoute(builder: (context) => Messagerie());
 
       default:
         return MaterialPageRoute(
