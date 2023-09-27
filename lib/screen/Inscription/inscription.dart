@@ -4,6 +4,7 @@ import 'package:renconsport/screen/Connexion/connexion.dart';
 import 'package:renconsport/screen/widget/Bouton/boutonIdentificationUser.dart';
 import 'package:renconsport/screen/widget/inputTexte.dart';
 import 'package:renconsport/services/AuthRegister/authRegister.dart';
+import 'package:renconsport/services/Router/CustomRouter.dart';
 import 'package:renconsport/services/theme.dart';
 
 class Inscription extends StatefulWidget {
@@ -140,12 +141,8 @@ class _InscriptionState extends State<Inscription> {
                                   final user = await _futureUser;
                                   if (user != null) {
                                     // La requête d'inscription a réussi, naviguez vers la page de connexion
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Connexion(),
-                                      ),
-                                    );
+                                    Navigator.pushNamed(
+                                        context, CustomRouter.connexion);
                                   } else {
                                     showDialog(
                                       context: context,
