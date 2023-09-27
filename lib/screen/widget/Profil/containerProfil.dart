@@ -22,6 +22,5 @@ class ContainerProfil extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

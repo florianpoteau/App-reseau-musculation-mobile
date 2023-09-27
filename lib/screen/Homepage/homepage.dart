@@ -3,6 +3,7 @@ import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/containerCardSport.dart';
 import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
+import 'package:renconsport/services/Router/CustomRouter.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 
 import '../ProfilPage/profilPage.dart';
@@ -101,10 +102,7 @@ class _HomepageState extends State<Homepage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfilPage()),
-                );
+                Navigator.pushNamed(context, CustomRouter.profilPage);
               },
               child: CircleAvatar(
                 backgroundColor: Colors.white,

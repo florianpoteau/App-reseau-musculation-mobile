@@ -122,12 +122,8 @@ class _HomePageState extends State<Connexion> {
                               ),
                               ButtonIdentificationUser(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: ((context) => Inscription()),
-                                    ),
-                                  );
+                                  Navigator.pushNamed(
+                                      context, CustomRouter.inscription);
                                 },
                                 texte: "S'inscrire",
                               ),
