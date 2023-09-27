@@ -90,6 +90,7 @@ class _SeancePublicState extends State<SeancePublic> {
                                 serie: entrainement.serie,
                                 repetition: entrainement.repetition,
                                 note: entrainement.note,
+                                poids: entrainement.poids,
                               );
                             },
                           )),
