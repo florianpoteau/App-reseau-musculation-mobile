@@ -26,7 +26,7 @@ class fetchMessagerie {
   static Stream<QuerySnapshot> getPost() {
     Query getMessage = FirebaseFirestore.instance
         .collection('messagerie')
-        .orderBy('timestamp', descending: false);
+        .orderBy('timestamp', descending: true);
     return getMessage.snapshots();
   }
 }
