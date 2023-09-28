@@ -1,95 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:renconsport/models/user.dart';
-import 'package:renconsport/screen/widget/Bouton/boutonAddUserSeance.dart';
-import 'package:renconsport/screen/widget/container.dart';
-import 'package:renconsport/services/GetUsers/fetchUser.dart';
+import 'package:renconsport/screen/widget/Container/containerSendMessage.dart';
+import 'package:renconsport/screen/widget/Container/containerUserMessage.dart';
+import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/services/theme.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Messagerie extends StatefulWidget {
-  const Messagerie({Key? key});
-
-  @override
-  State<Messagerie> createState() => _MessagerieState();
-}
-
-class _MessagerieState extends State<Messagerie> {
-  List<User> users = [];
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUsers();
-  }
-
-  Future<void> _loadUsers() async {
-    try {
-      final userList = await GetAllUsers.fetchUsers();
-      setState(() {
-        users = userList;
-        isLoading = false;
-      });
-    } catch (e) {
-      print('Erreur lors du chargement des utilisateurs: $e');
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
+class Messagerie extends StatelessWidget {
+  const Messagerie({super.key, required this.username, this.id});
+  final String username;
+  final int? id;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            // Utilisation de SingleChildScrollView
-            child: Container(
-              color: CustomTheme.Colorblue,
-              child: Column(
+      appBar: AppBar(),
+      body: Container(
+        color: CustomTheme.Colororange,
+        child: Center(
+            child: FutureBuilder<Map<String, dynamic>?>(
+          future: GetToken.getToken(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              final data = snapshot.data as Map<String, dynamic>?;
+
+              final id_user = data != null ? data['id'] : 'Utilisateur inconnu';
+              print(id_user);
+              return ListView(
+                reverse: true, // Place le contenu en bas de la vue
+                padding: EdgeInsets.all(16.0),
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        // Widget
-                        for (User user in users)
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ContainerMessagerie(username: user.username),
-                                SizedBox(height: 20),
-                                new ConstrainedBox(
-                                  constraints: new BoxConstraints(
-                                    minHeight: 80.0,
-                                  ),
-                                  // Widget
-                                  child: BoutonAddUserSeance(),
-                                ),
-                              ],
-                            ),
-                          ),
-                      ],
-                    ),
+                  ContainerSendMessage(
+                    idToken: id_user,
+                    idDestinataire: id,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ContainerUserMessage(
+                    username: username,
                   ),
                 ],
-              ),
-            ),
-          ),
-          if (isLoading)
-            Container(
-              color: CustomTheme.Colorblue, // Fond semi-transparent
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-        ],
+              );
+            } else {
+              return Text("Chargement...");
+            }
+            ;
+          },
+        )),
       ),
     );
   }

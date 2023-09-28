@@ -1,10 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/entrainement.dart';
-import 'package:renconsport/screen/widget/containerCardSport.dart';
+import 'package:renconsport/screen/widget/Container/containerCardSport.dart';
 import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
+import 'package:renconsport/services/Router/CustomRouter.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 
 import '../ProfilPage/profilPage.dart';
@@ -20,6 +19,7 @@ class _HomepageState extends State<Homepage> {
   List<Entrainement> entrainements = [];
   bool isLoading = true;
   String username = 'Chargement...';
+  int? userId;
 
   @override
   void initState() {
@@ -32,14 +32,21 @@ class _HomepageState extends State<Homepage> {
     final data = await GetToken.getToken();
     setState(() {
       username = data != null ? data['username'] : 'Utilisateur inconnu';
+      userId = data != null
+          ? data['id']
+          : null; // Récupération de l'ID de l'utilisateur
     });
   }
 
   Future<void> _loadEntrainements() async {
     try {
       final data = await GetEntrainements.fetchEntrainements();
+
       setState(() {
-        entrainements = data.cast<Entrainement>();
+        // Filtrer les entraînements pour ne conserver que ceux de l'utilisateur actuel
+        entrainements = data
+            .where((entrainement) => entrainement.userid == userId)
+            .toList();
         isLoading = false;
       });
     } catch (e, stackTrace) {
@@ -95,10 +102,7 @@ class _HomepageState extends State<Homepage> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfilPage()),
-                );
+                Navigator.pushNamed(context, CustomRouter.profilPage);
               },
               child: CircleAvatar(
                 backgroundColor: Colors.white,
@@ -129,7 +133,6 @@ class _HomepageState extends State<Homepage> {
                           ConnectionState.done) {
                         final tokenData = tokenSnapshot.data;
                         if (tokenData != null) {
-                          final tokenUserId = tokenData['id'];
                           return ListView.builder(
                             itemCount: entrainements.length,
                             itemBuilder: (context, index) {
@@ -144,6 +147,8 @@ class _HomepageState extends State<Homepage> {
                                   serie: entrainement.serie,
                                   repetition: entrainement.repetition,
                                   note: entrainement.note,
+                                  poids: entrainement.poids,
+                                  ispublic: entrainement.ispublic,
                                 );
                               } else {
                                 return ContainerCardSport(
@@ -154,6 +159,8 @@ class _HomepageState extends State<Homepage> {
                                   serie: entrainement.serie,
                                   repetition: entrainement.repetition,
                                   note: entrainement.note,
+                                  poids: entrainement.poids,
+                                  ispublic: entrainement.ispublic,
                                 );
                               }
                             },

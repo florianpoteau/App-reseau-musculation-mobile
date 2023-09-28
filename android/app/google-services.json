@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "85142115101",
+    "project_id": "renconsport-flo",
+    "storage_bucket": "renconsport-flo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85142115101:android:96d20e547ed11e1ce5c7f4",
+        "android_client_info": {
+          "package_name": "com.example.renconsport"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlvVvcb7PNFxUGfQqJqPt59Jf1_Rwa3xg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

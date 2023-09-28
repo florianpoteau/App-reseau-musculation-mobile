@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:renconsport/models/entrainement.dart';
-import 'package:renconsport/models/exercice.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
-import './Modale/modaleDetailCard.dart';
 
 class ContainerCardSport extends StatelessWidget {
   final Color cardColor;
@@ -13,6 +10,8 @@ class ContainerCardSport extends StatelessWidget {
   final int serie;
   final int repetition;
   final String? note;
+  final int? poids;
+  final bool? ispublic;
 
   ContainerCardSport(
       {this.cardColor = const Color(0xFF0091AD),
@@ -21,7 +20,9 @@ class ContainerCardSport extends StatelessWidget {
       required this.exerciceGenre,
       required this.serie,
       required this.repetition,
-      required this.note});
+      required this.note,
+      this.poids,
+      this.ispublic});
 
   IconData _getIconDataForGenre() {
     // Ajoutez ici une logique de correspondance entre le genre de l'exercice et l'icône FontAwesome
@@ -57,13 +58,15 @@ class ContainerCardSport extends StatelessWidget {
   List<Widget> _buildCards(BuildContext context) {
     List<Widget> cards = [
       CardSeanceFiltre(
-        content: textContent,
-        iconData: _getIconDataForGenre(),
-        cardColor: cardColor,
-        serie: serie,
-        repetition: repetition,
-        note: note,
-      ),
+          content: textContent,
+          iconData: _getIconDataForGenre(),
+          cardColor: cardColor,
+          serie: serie,
+          repetition: repetition,
+          note: note,
+          poids: poids,
+          exerciceGenre: exerciceGenre,
+          ispublic: ispublic),
     ];
 
     if (selectedSport == 'Tout') {
