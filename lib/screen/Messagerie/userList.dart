@@ -4,6 +4,7 @@ import 'package:renconsport/models/user.dart';
 import 'package:renconsport/screen/widget/Bouton/boutonAddUserSeance.dart';
 import 'package:renconsport/screen/widget/Container/containerMessagerie.dart';
 import 'package:renconsport/services/GetUsers/fetchUser.dart';
+import 'package:renconsport/services/Messagerie/fetchMessagerie.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/services/theme.dart';
 
@@ -15,7 +16,8 @@ class UserList extends StatefulWidget {
 }
 
 class _MessagerieState extends State<UserList> {
-  List<User> users = [];
+  List<User> activeContacts = [];
+  List<User> otherContacts = [];
   bool isLoading = true;
 
   @override
@@ -34,9 +36,18 @@ class _MessagerieState extends State<UserList> {
 
       try {
         final userList = await GetAllUsers.fetchUsers();
+
+        final activeUserIds = await fetchMessagerie.getActiveUserIds(userId);
+
         setState(() {
-          // Filtrer la liste des utilisateurs pour exclure celui qui est connecté
-          users = userList.where((user) => user.id != userId).toList();
+          // Filtrer les utilisateurs actifs et les autres utilisateurs
+          activeContacts = userList
+              .where((user) => activeUserIds.contains(user.id))
+              .toList();
+          otherContacts = userList
+              .where((user) => !activeUserIds.contains(user.id))
+              .toList();
+
           isLoading = false;
         });
       } catch (e) {
@@ -57,7 +68,6 @@ class _MessagerieState extends State<UserList> {
       body: Stack(
         children: [
           SingleChildScrollView(
-            // Utilisation de SingleChildScrollView
             child: Container(
               color: CustomTheme.Colorblue,
               child: Column(
@@ -67,28 +77,89 @@ class _MessagerieState extends State<UserList> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        // Widget
-                        for (User user in users)
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ContainerMessagerie(
-                                  id: user.id,
-                                  username: user.username,
-                                  age: user.age,
-                                ),
-                                SizedBox(height: 20),
-                                new ConstrainedBox(
-                                  constraints: new BoxConstraints(
-                                    minHeight: 80.0,
+                        // Condition qui permet de vérifier si la liste des contacts est vide
+                        if (activeContacts.isNotEmpty)
+                          Column(
+                            children: [
+                              Text(
+                                "Mes conversations:",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white),
+                              ),
+                              SizedBox(height: 10),
+                              // boucle qui affiche les contacts si elle est rempli
+                              for (User user in activeContacts)
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ContainerMessagerie(
+                                        id: user.id,
+                                        username: user.username,
+                                        age: user.age,
+                                      ),
+                                      SizedBox(height: 20),
+                                      new ConstrainedBox(
+                                        constraints: new BoxConstraints(
+                                          minHeight: 80.0,
+                                        ),
+                                        child: BoutonAddUserSeance(),
+                                      ),
+                                    ],
                                   ),
-                                  // Widget
-                                  child: BoutonAddUserSeance(),
                                 ),
-                              ],
-                            ),
+                            ],
+                          ),
+
+                        // Afficher les autres utilisateurs
+                        if (otherContacts.isNotEmpty)
+                          Column(
+                            children: [
+                              // affiche les autres utilisateurs
+                              if (activeContacts.isEmpty)
+                                Text(
+                                  "Faites des rencontres:",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white),
+                                ),
+                              if (activeContacts.isNotEmpty)
+                                Text(
+                                  "Faites d'autres rencontres:",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white),
+                                ),
+                              SizedBox(height: 10),
+                              for (User user in otherContacts)
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ContainerMessagerie(
+                                        id: user.id,
+                                        username: user.username,
+                                        age: user.age,
+                                      ),
+                                      SizedBox(height: 20),
+                                      new ConstrainedBox(
+                                        constraints: new BoxConstraints(
+                                          minHeight: 80.0,
+                                        ),
+                                        child: BoutonAddUserSeance(),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                            ],
                           ),
                       ],
                     ),
