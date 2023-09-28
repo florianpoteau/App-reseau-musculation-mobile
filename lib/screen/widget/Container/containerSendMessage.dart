@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:renconsport/screen/widget/Container/containerUserMessage.dart';
 import 'package:renconsport/services/Messagerie/fetchMessagerie.dart';
@@ -25,34 +26,65 @@ class _ContainerSendMessageState extends State<ContainerSendMessage> {
         width: MediaQuery.of(context).size.width * 0.9,
         color: Colors.white,
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Alignez le texte en haut à gauche
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Messages", // Votre texte en haut du container
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              "Message 2",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
             Expanded(
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: SingleChildScrollView(
-                  reverse: true, // Faites défiler les messages de haut en bas
-                  child: Column(
-                    children: [
-                      // Vous pouvez afficher les messages ici (par exemple, avec un ListView.builder)
-                    ],
-                  ),
-                ),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: fetchMessagerie.getPost(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Erreur: ${snapshot.error}');
+                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return Text('');
+                  } else {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        final doc = snapshot.data!.docs[index];
+                        final post = doc.data() as Map<String, dynamic>;
+                        final messageUserID = post['user_id'];
+                        final destinataireID = post['destinataire_id'];
+                        final shouldDisplayMessage =
+                            (widget.idToken == messageUserID &&
+                                    widget.idDestinataire == destinataireID) ||
+                                (widget.idToken == destinataireID &&
+                                    widget.idDestinataire == messageUserID);
+
+                        if (shouldDisplayMessage) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Align(
+                              alignment: (widget.idToken == messageUserID)
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.all(15),
+                                      color: (widget.idToken == messageUserID)
+                                          ? Colors.blue
+                                          : Colors.green,
+                                      child: Text(post['texte'] ?? ''),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    );
+                  }
+                },
               ),
             ),
             SizedBox(height: 10), // Espacement entre le texte et l'input
@@ -66,11 +98,44 @@ class _ContainerSendMessageState extends State<ContainerSendMessage> {
                   ),
                   labelStyle: TextStyle(color: Colors.black),
                 ),
+                style: TextStyle(color: Colors.black),
               ),
             ),
             ElevatedButton(
-              onPressed: () {
-                _sendMessage();
+              onPressed: () async {
+                final userId = widget.idToken;
+                final destinataireId = widget.idDestinataire;
+                final texte = _messageController.text;
+
+                if (userId != null &&
+                    destinataireId != null &&
+                    texte.isNotEmpty) {
+                  try {
+                    final result = await fetchMessagerie.createMessage(
+                      userId: userId,
+                      destinataireId: destinataireId,
+                      texte: texte,
+                    );
+
+                    if (result == "OK") {
+                      _messageController.clear();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Erreur lors de l'envoi du message"),
+                        ),
+                      );
+                    }
+                  } catch (e) {
+                    // Gérer les erreurs ici en affichant le message d'erreur dans la console
+                    print("Erreur lors de l'envoi du message : $e");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Erreur lors de l'envoi du message : $e"),
+                      ),
+                    );
+                  }
+                }
               },
               child: Text("Envoyer"),
             ),
@@ -78,39 +143,5 @@ class _ContainerSendMessageState extends State<ContainerSendMessage> {
         ),
       ),
     );
-  }
-
-  void _sendMessage() async {
-    final userId = widget.idToken; // ID de l'utilisateur connecté
-    final destinataireId = widget.idDestinataire; // ID du destinataire
-    final texte = _messageController.text; // Texte saisi par l'utilisateur
-
-    if (userId != null && destinataireId != null && texte.isNotEmpty) {
-      try {
-        final result = await fetchMessagerie.createMessage(
-          userId: userId,
-          destinataireId: destinataireId,
-          texte: texte,
-        );
-
-        if (result == "OK") {
-          _messageController.clear(); // Effacer le champ de texte après l'envoi
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Erreur lors de l'envoi du message"),
-            ),
-          );
-        }
-      } catch (e) {
-        // Gérer les erreurs ici en affichant le message d'erreur dans la console
-        print("Erreur lors de l'envoi du message : $e");
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Erreur lors de l'envoi du message : $e"),
-          ),
-        );
-      }
-    }
   }
 }
