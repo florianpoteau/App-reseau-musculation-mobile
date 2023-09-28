@@ -42,19 +42,18 @@ class _ContainerSendMessageState extends State<ContainerSendMessage> {
                     return Text('');
                   } else {
                     return ListView.builder(
+                      reverse: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         final doc = snapshot.data!.docs[index];
                         final post = doc.data() as Map<String, dynamic>;
                         final messageUserID = post['user_id'];
                         final destinataireID = post['destinataire_id'];
-                        final shouldDisplayMessage =
-                            (widget.idToken == messageUserID &&
-                                    widget.idDestinataire == destinataireID) ||
-                                (widget.idToken == destinataireID &&
-                                    widget.idDestinataire == messageUserID);
 
-                        if (shouldDisplayMessage) {
+                        if ((widget.idToken == messageUserID &&
+                                widget.idDestinataire == destinataireID) ||
+                            (widget.idToken == destinataireID &&
+                                widget.idDestinataire == messageUserID)) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: Align(
