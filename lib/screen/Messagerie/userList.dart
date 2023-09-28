@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:renconsport/models/user.dart';
 import 'package:renconsport/screen/widget/Bouton/boutonAddUserSeance.dart';
 import 'package:renconsport/screen/widget/Container/containerMessagerie.dart';
 import 'package:renconsport/services/GetUsers/fetchUser.dart';
+import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/services/theme.dart';
 
 class UserList extends StatefulWidget {
@@ -23,17 +25,26 @@ class _MessagerieState extends State<UserList> {
   }
 
   Future<void> _loadUsers() async {
-    try {
-      final userList = await GetAllUsers.fetchUsers();
-      setState(() {
-        users = userList;
-        isLoading = false;
-      });
-    } catch (e) {
-      print('Erreur lors du chargement des utilisateurs: $e');
-      setState(() {
-        isLoading = false;
-      });
+    final tokenInfo =
+        await GetToken.getToken(); // Récupère les informations du token
+
+    if (tokenInfo != null) {
+      final userId = tokenInfo[
+          'id']; // Supposons que 'sub' contient l'identifiant de l'utilisateur
+
+      try {
+        final userList = await GetAllUsers.fetchUsers();
+        setState(() {
+          // Filtrer la liste des utilisateurs pour exclure celui qui est connecté
+          users = userList.where((user) => user.id != userId).toList();
+          isLoading = false;
+        });
+      } catch (e) {
+        print('Erreur lors du chargement des utilisateurs: $e');
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
   }
 

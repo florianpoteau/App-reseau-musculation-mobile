@@ -9,6 +9,7 @@ class GetAllUsers {
   static Future<List<User>> fetchUsers() async {
     final Dio _dio = Dio();
     final Header header = Header();
+
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         '${ApiConfig.baseUrl}/users',
