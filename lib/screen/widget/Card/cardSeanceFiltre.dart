@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Modale/modaleDetailCard.dart';
 
-class CardSeanceFiltre extends StatelessWidget {
+class CardSeanceFiltre extends StatefulWidget {
   final String content;
   final IconData iconData;
   final Color cardColor;
@@ -29,60 +29,89 @@ class CardSeanceFiltre extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CardSeanceFiltreState createState() => _CardSeanceFiltreState();
+}
+
+class _CardSeanceFiltreState extends State<CardSeanceFiltre> {
+  bool _isPressed = false;
+
+  void _handleTapDown(TapDownDetails details) {
+    setState(() {
+      _isPressed = true;
+    });
+  }
+
+  void _handleTapUp(TapUpDetails details) {
+    Future.delayed(const Duration(milliseconds: 150), () {
+      setState(() {
+        _isPressed = false;
+      });
+    });
+    if (widget.onTap != null) {
+      widget.onTap!();
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CardDetailsModale(
+              cardTitle: widget.content,
+              cardDetails: "Détails de ${widget.content}",
+              serie: widget.serie,
+              repetition: widget.repetition,
+              note: widget.note,
+              poids: widget.poids,
+              exerciceGenre: widget.exerciceGenre,
+              ispublic: widget.ispublic);
+        },
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if (onTap != null) {
-          onTap!();
-        } else {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return CardDetailsModale(
-                  cardTitle: content,
-                  cardDetails: "Détails de $content",
-                  serie: serie,
-                  repetition: repetition,
-                  note: note,
-                  poids: poids,
-                  exerciceGenre: exerciceGenre,
-                  ispublic: ispublic);
-            },
-          );
-        }
+      onTapDown: _handleTapDown,
+      onTapUp: _handleTapUp,
+      onTapCancel: () {
+        setState(() {
+          _isPressed = false;
+        });
       },
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        height: 80,
-        padding: EdgeInsets.only(left: 10, right: 10),
-        child: Card(
-          color: cardColor,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FaIcon(
-                  iconData,
-                  size: 45,
-                ),
-                // Enveloppez le Text dans un SingleChildScrollView avec une largeur fixe
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    width:
-                        MediaQuery.of(context).size.width * 0.5, // Largeur fixe
-                    child: Text(
-                      content,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 28,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+        transform: Matrix4.identity()..scale(_isPressed ? 0.95 : 1.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.9,
+          height: 80,
+          padding: EdgeInsets.only(left: 10, right: 10),
+          child: Card(
+            color: widget.cardColor,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  FaIcon(
+                    widget.iconData,
+                    size: 45,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Text(
+                        widget.content,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 28,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
