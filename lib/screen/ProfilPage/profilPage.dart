@@ -102,8 +102,11 @@ class _ProfilPageState extends State<ProfilPage> {
                               await storage.delete(key: 'token');
 
                               // Naviguer vers la page de connexion
-                              Navigator.pushReplacementNamed(
-                                  context, CustomRouter.connexion);
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                CustomRouter.connexion,
+                                (route) => false,
+                              );
                             },
                             child: Text("Déconnexion"),
                           )
