@@ -37,7 +37,11 @@ class _CircleButtonState extends State<CircleButton> {
     return GestureDetector(
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
-      onTap: widget.onPressed,
+      onTap: () {
+        Future.delayed(const Duration(milliseconds: 80), () {
+          widget.onPressed();
+        });
+      },
       child: Transform.scale(
         scale: _isPressed ? 0.9 : 1.0,
         child: ElevatedButton(

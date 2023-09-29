@@ -47,24 +47,26 @@ class _CardSeanceFiltreState extends State<CardSeanceFiltre> {
         _isPressed = false;
       });
     });
-    if (widget.onTap != null) {
-      widget.onTap!();
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CardDetailsModale(
-              cardTitle: widget.content,
-              cardDetails: "Détails de ${widget.content}",
-              serie: widget.serie,
-              repetition: widget.repetition,
-              note: widget.note,
-              poids: widget.poids,
-              exerciceGenre: widget.exerciceGenre,
-              ispublic: widget.ispublic);
-        },
-      );
-    }
+    Future.delayed(const Duration(milliseconds: 300), () {
+      if (widget.onTap != null) {
+        widget.onTap!();
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CardDetailsModale(
+                cardTitle: widget.content,
+                cardDetails: "Détails de ${widget.content}",
+                serie: widget.serie,
+                repetition: widget.repetition,
+                note: widget.note,
+                poids: widget.poids,
+                exerciceGenre: widget.exerciceGenre,
+                ispublic: widget.ispublic);
+          },
+        );
+      }
+    });
   }
 
   @override
