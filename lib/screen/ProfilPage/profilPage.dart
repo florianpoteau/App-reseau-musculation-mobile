@@ -89,6 +89,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                   border: InputBorder.none,
                                 ),
                                 maxLines: 3,
+                                style: TextStyle(color: Colors.black),
                               ),
                             ),
                           ),
