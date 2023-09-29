@@ -101,11 +101,24 @@ class CardDetailsModale extends StatelessWidget {
         ),
       ),
       actions: <Widget>[
-        TextButton(
-          child: Text('Fermer'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              child: Text('Ajouter'),
+              onPressed: () {},
+            ),
+            TextButton(
+              child: Text('Groupe'),
+              onPressed: () {},
+            ),
+            TextButton(
+              child: Text('Fermer'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         ),
       ],
     );
