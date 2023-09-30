@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -53,10 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBlvVvcb7PNFxUGfQqJqPt59Jf1_Rwa3xg',
-    appId: '1:85142115101:android:96d20e547ed11e1ce5c7f4',
-    messagingSenderId: '85142115101',
-    projectId: 'renconsport-flo',
-    storageBucket: 'renconsport-flo.appspot.com',
+    apiKey: 'AIzaSyBRilORKInppI37fR3CpmDECiGo8CplJaE',
+    appId: '1:568414792949:android:6308ecd386654f4b21a9bc',
+    messagingSenderId: '568414792949',
+    projectId: 'reconsport-marco',
+    storageBucket: 'reconsport-marco.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyC_OzV20-4XJwYiqx1X9X9qLlncw_d8758',
+    appId: '1:568414792949:ios:88760a56e80b442a21a9bc',
+    messagingSenderId: '568414792949',
+    projectId: 'reconsport-marco',
+    storageBucket: 'reconsport-marco.appspot.com',
+    iosBundleId: 'com.example.renconsport',
   );
 }
