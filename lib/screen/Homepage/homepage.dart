@@ -3,6 +3,7 @@ import 'package:renconsport/models/entrainement.dart';
 import 'package:renconsport/screen/widget/Container/containerCardSport.dart';
 import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
+import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/services/Router/CustomRouter.dart';
 import 'package:renconsport/services/authToken/getToken.dart';
 
@@ -40,7 +41,7 @@ class _HomepageState extends State<Homepage> {
 
   Future<void> _loadEntrainements() async {
     try {
-      final data = await GetEntrainements.fetchEntrainements();
+      final data = await FetchEntrainement.fetchEntrainements();
 
       setState(() {
         // Filtrer les entraînements pour ne conserver que ceux de l'utilisateur actuel
@@ -140,6 +141,7 @@ class _HomepageState extends State<Homepage> {
 
                               if (entrainement.ispublic) {
                                 return ContainerCardSport(
+                                  idEntrainement: entrainement.id,
                                   textContent: entrainement.nom,
                                   cardColor: Color(0xFFEEB116),
                                   exerciceGenre: entrainement.exercicegenre,
@@ -152,6 +154,7 @@ class _HomepageState extends State<Homepage> {
                                 );
                               } else {
                                 return ContainerCardSport(
+                                  idEntrainement: entrainement.id,
                                   cardColor: Colors.cyan,
                                   selectedSport: null,
                                   textContent: entrainement.nom,

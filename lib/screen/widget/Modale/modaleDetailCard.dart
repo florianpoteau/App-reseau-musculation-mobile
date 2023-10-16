@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/screen/widget/Modale/modalEntrainement.dart';
 
 class CardDetailsModale extends StatelessWidget {
   final String cardTitle;
@@ -9,6 +10,7 @@ class CardDetailsModale extends StatelessWidget {
   final int? poids;
   final String? exerciceGenre;
   final bool? ispublic;
+  final int? idEntrainement;
 
   CardDetailsModale(
       {required this.cardTitle,
@@ -18,7 +20,8 @@ class CardDetailsModale extends StatelessWidget {
       this.note,
       this.poids,
       this.exerciceGenre,
-      this.ispublic});
+      this.ispublic,
+      this.idEntrainement});
 
   @override
   Widget build(BuildContext context) {
@@ -104,14 +107,21 @@ class CardDetailsModale extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // Modifier un entrainement avec son nom
             TextButton(
-              child: Text('Ajouter'),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    String nouveauNom = "";
+
+                    return ModalEntrainement(idEntrainement: idEntrainement);
+                  },
+                );
+              },
+              child: Text('Modifier'),
             ),
-            TextButton(
-              child: Text('Groupe'),
-              onPressed: () {},
-            ),
+            TextButton(onPressed: () {}, child: Text('Supprimer')),
             TextButton(
               child: Text('Fermer'),
               onPressed: () {

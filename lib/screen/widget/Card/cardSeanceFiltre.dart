@@ -13,6 +13,7 @@ class CardSeanceFiltre extends StatefulWidget {
   final int? poids;
   final String? exerciceGenre;
   final bool? ispublic;
+  final int? idEntrainement;
 
   CardSeanceFiltre({
     required this.content,
@@ -26,6 +27,7 @@ class CardSeanceFiltre extends StatefulWidget {
     this.poids,
     this.exerciceGenre,
     this.ispublic,
+    this.idEntrainement,
   }) : super(key: key);
 
   @override
@@ -55,14 +57,16 @@ class _CardSeanceFiltreState extends State<CardSeanceFiltre> {
           context: context,
           builder: (BuildContext context) {
             return CardDetailsModale(
-                cardTitle: widget.content,
-                cardDetails: "Détails de ${widget.content}",
-                serie: widget.serie,
-                repetition: widget.repetition,
-                note: widget.note,
-                poids: widget.poids,
-                exerciceGenre: widget.exerciceGenre,
-                ispublic: widget.ispublic);
+              cardTitle: widget.content,
+              cardDetails: "Détails de ${widget.content}",
+              serie: widget.serie,
+              repetition: widget.repetition,
+              note: widget.note,
+              poids: widget.poids,
+              exerciceGenre: widget.exerciceGenre,
+              ispublic: widget.ispublic,
+              idEntrainement: widget.idEntrainement,
+            );
           },
         );
       }

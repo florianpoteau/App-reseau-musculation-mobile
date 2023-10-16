@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:renconsport/screen/widget/Card/cardSeanceFiltre.dart';
 
 class ContainerCardSport extends StatelessWidget {
+  final int idEntrainement;
   final Color cardColor;
   final String? selectedSport;
   final String textContent;
@@ -22,7 +23,8 @@ class ContainerCardSport extends StatelessWidget {
       required this.repetition,
       required this.note,
       this.poids,
-      this.ispublic});
+      this.ispublic,
+      required this.idEntrainement});
 
   IconData _getIconDataForGenre() {
     // Ajoutez ici une logique de correspondance entre le genre de l'exercice et l'icône FontAwesome
@@ -66,7 +68,8 @@ class ContainerCardSport extends StatelessWidget {
           note: note,
           poids: poids,
           exerciceGenre: exerciceGenre,
-          ispublic: ispublic),
+          ispublic: ispublic,
+          idEntrainement: idEntrainement),
     ];
 
     if (selectedSport == 'Tout') {
