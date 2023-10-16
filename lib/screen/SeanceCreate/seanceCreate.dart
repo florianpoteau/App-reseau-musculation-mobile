@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:renconsport/models/exercice.dart';
 import 'package:renconsport/screen/Homepage/homepage.dart';
-import 'package:renconsport/services/Entrainements/postEntrainement.dart';
+import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/services/Router/CustomRouter.dart';
 
 class SeanceCreate extends StatefulWidget {
@@ -249,7 +249,7 @@ class _SeanceCreateState extends State<SeanceCreate> {
                             String noteValue = note.text;
 
                             try {
-                              await PostEntrainement.postEntrainement(
+                              await FetchEntrainement.postEntrainement(
                                 nomValue,
                                 serieValue,
                                 repetitionValue,

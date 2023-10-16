@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:renconsport/screen/widget/Modale/modalEntrainement.dart';
+import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
+import 'package:renconsport/services/Router/CustomRouter.dart';
 
 class CardDetailsModale extends StatelessWidget {
   final String cardTitle;
@@ -9,16 +12,19 @@ class CardDetailsModale extends StatelessWidget {
   final int? poids;
   final String? exerciceGenre;
   final bool? ispublic;
+  final int? idEntrainement;
 
-  CardDetailsModale(
-      {required this.cardTitle,
-      required this.cardDetails,
-      this.serie,
-      this.repetition,
-      this.note,
-      this.poids,
-      this.exerciceGenre,
-      this.ispublic});
+  CardDetailsModale({
+    required this.cardTitle,
+    required this.cardDetails,
+    this.serie,
+    this.repetition,
+    this.note,
+    this.poids,
+    this.exerciceGenre,
+    this.ispublic,
+    this.idEntrainement,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -104,14 +110,36 @@ class CardDetailsModale extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // Modifier un entrainement avec son nom
             TextButton(
-              child: Text('Ajouter'),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ModalEntrainement(
+                        idEntrainement: idEntrainement,
+                        serie: serie,
+                        poids: poids,
+                        repetition: repetition);
+                  },
+                );
+              },
+              child: Text('Modifier'),
             ),
             TextButton(
-              child: Text('Groupe'),
-              onPressed: () {},
+              onPressed: () async {
+                // Appelez la fonction pour supprimer l'entraînement
+                try {
+                  FetchEntrainement.deleteEntrainement(idEntrainement);
+                  Navigator.pushNamed(context, CustomRouter.homepage);
+                } catch (e) {
+                  print(
+                      "Erreur lors de la suppression de l'entraînement : $e $idEntrainement");
+                }
+              },
+              child: Text('Supprimer'),
             ),
+
             TextButton(
               child: Text('Fermer'),
               onPressed: () {

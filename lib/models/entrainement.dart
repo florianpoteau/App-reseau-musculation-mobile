@@ -1,6 +1,7 @@
 import 'package:renconsport/models/exercice.dart';
 
 class Entrainement {
+  final int id;
   final String nom;
   final DateTime? datedebut;
   final DateTime? datefin;
@@ -16,7 +17,8 @@ class Entrainement {
   final int? dureeheure;
 
   Entrainement(
-      {required this.nom,
+      {required this.id,
+      required this.nom,
       this.datedebut,
       this.datefin,
       required this.serie,
@@ -46,6 +48,7 @@ class Entrainement {
         json['datefin'] != null ? DateTime.parse(json['datefin']) : null;
 
     return Entrainement(
+        id: json['id'],
         nom: json['nom'],
         datedebut: datedebut,
         datefin: datefin,

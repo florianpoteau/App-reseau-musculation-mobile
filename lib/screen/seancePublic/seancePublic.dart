@@ -4,6 +4,7 @@ import 'package:renconsport/screen/widget/FooterButton/footerButton.dart';
 import 'package:renconsport/screen/widget/Container/containerCardSport.dart';
 import 'package:renconsport/screen/widget/dropDown/filterDropDown.dart';
 import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
+import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/services/theme.dart';
 
 class SeancePublic extends StatefulWidget {
@@ -27,7 +28,7 @@ class _SeancePublicState extends State<SeancePublic> {
 // Dans la méthode _loadEntrainement, après avoir obtenu les données
   Future<void> _loadEntrainement() async {
     try {
-      final data = await GetEntrainements.fetchEntrainements();
+      final data = await FetchEntrainement.fetchEntrainements();
       final entrainementsList = data.cast<Entrainement>();
 
       // Filtrer les entraînements publics
@@ -83,6 +84,7 @@ class _SeancePublicState extends State<SeancePublic> {
                             itemBuilder: (context, index) {
                               final entrainement = entrainements[index];
                               return ContainerCardSport(
+                                idEntrainement: entrainement.id,
                                 selectedSport: _selectedSport,
                                 cardColor: Color(0xFFEEB116),
                                 textContent: entrainement.nom,
