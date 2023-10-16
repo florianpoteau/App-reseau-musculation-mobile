@@ -82,24 +82,41 @@ class FetchEntrainement {
     }
   }
 
-  // static Future<Entrainement> putEntrainement(String nom) async {
-  //   try {
-  //     final Map<String, dynamic> putForm = {'nom': nom};
-  //     final response = await dio.put(
-  //       '${ApiConfig.baseUrl}/entrainements/${Entrainement.fromJson(id)}',
-  //       data: putForm,
-  //       options: Options(headers: header.getHeaders()),
-  //     );
-  //     if (response.statusCode == 201) {
-  //       final Map<String, dynamic> responseData = response.data;
-  //       final Entrainement entrainement = Entrainement.fromJson(responseData);
-  //       return entrainement;
-  //     } else {
-  //       throw Exception("Echec de la mise a jour d'un entrainement");
-  //     }
-  //   } catch (e, stackTrace) {
-  //     throw Exception('Erreur lors de la requête HTTP : $e');
-  //     print(stackTrace);
-  //   }
-  // }
+  static Future<Entrainement> putEntrainement(String nom, String note,
+      int? serie, int? repetition, int? poids, int id) async {
+    try {
+      final Map<String, dynamic> putForm = {
+        if (nom.isNotEmpty) 'nom': nom,
+        if (note.isNotEmpty) 'note': note,
+        if (serie != 0 && serie != null) 'serie': serie,
+        if (repetition != 0 && repetition != null) 'repetition': repetition,
+        if (poids != 0 && poids != null) 'poids': poids
+      };
+      final response = await dio.put(
+        '${ApiConfig.baseUrl}/entrainements/$id',
+        data: putForm,
+        options: Options(headers: header.getHeaders()),
+      );
+      if (response.statusCode == 201) {
+        final Map<String, dynamic> responseData = response.data;
+        final Entrainement entrainement = Entrainement.fromJson(responseData);
+        return entrainement;
+      } else {
+        throw Exception("Echec de la mise a jour d'un entrainement");
+      }
+    } catch (e, stackTrace) {
+      throw Exception('Erreur lors de la requête HTTP : $e $serie');
+    }
+  }
+
+  static void deleteEntrainement(int? id) async {
+    try {
+      await dio.delete(
+        "${ApiConfig.baseUrl}/entrainements/$id",
+        options: Options(headers: header.getHeaders()),
+      );
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

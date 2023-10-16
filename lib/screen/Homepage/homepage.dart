@@ -135,6 +135,7 @@ class _HomepageState extends State<Homepage> {
                         final tokenData = tokenSnapshot.data;
                         if (tokenData != null) {
                           return ListView.builder(
+                            reverse: true,
                             itemCount: entrainements.length,
                             itemBuilder: (context, index) {
                               final entrainement = entrainements[index];

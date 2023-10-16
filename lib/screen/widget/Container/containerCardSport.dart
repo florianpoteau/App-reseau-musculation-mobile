@@ -14,17 +14,18 @@ class ContainerCardSport extends StatelessWidget {
   final int? poids;
   final bool? ispublic;
 
-  ContainerCardSport(
-      {this.cardColor = const Color(0xFF0091AD),
-      this.selectedSport,
-      required this.textContent,
-      required this.exerciceGenre,
-      required this.serie,
-      required this.repetition,
-      required this.note,
-      this.poids,
-      this.ispublic,
-      required this.idEntrainement});
+  ContainerCardSport({
+    this.cardColor = const Color(0xFF0091AD),
+    this.selectedSport,
+    required this.textContent,
+    required this.exerciceGenre,
+    required this.serie,
+    required this.repetition,
+    required this.note,
+    this.poids,
+    this.ispublic,
+    required this.idEntrainement,
+  });
 
   IconData _getIconDataForGenre() {
     // Ajoutez ici une logique de correspondance entre le genre de l'exercice et l'icône FontAwesome
@@ -69,7 +70,7 @@ class ContainerCardSport extends StatelessWidget {
           poids: poids,
           exerciceGenre: exerciceGenre,
           ispublic: ispublic,
-          idEntrainement: idEntrainement),
+          idEntrainement: idEntrainement)
     ];
 
     if (selectedSport == 'Tout') {
