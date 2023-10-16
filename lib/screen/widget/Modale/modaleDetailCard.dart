@@ -65,7 +65,7 @@ class CardDetailsModale extends StatelessWidget {
                 children: [
                   SizedBox(height: 20),
                   Text(
-                    "$serie série",
+                    "$serie séries",
                     style: TextStyle(color: Colors.black),
                   ),
                 ],
