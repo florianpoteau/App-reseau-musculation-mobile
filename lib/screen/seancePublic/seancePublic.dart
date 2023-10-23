@@ -51,7 +51,7 @@ class _SeancePublicState extends State<SeancePublic> {
           .toList();
 
       setState(() {
-        entrainements = entrainementsPublics;
+        entrainements = entrainementsPublics.reversed.toList();
         isLoading = false;
       });
     } catch (e) {
