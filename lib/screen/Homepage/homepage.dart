@@ -133,9 +133,9 @@ class _HomepageState extends State<Homepage> {
                       if (tokenSnapshot.connectionState ==
                           ConnectionState.done) {
                         final tokenData = tokenSnapshot.data;
+                        entrainements = entrainements.reversed.toList();
                         if (tokenData != null) {
                           return ListView.builder(
-                            reverse: true,
                             itemCount: entrainements.length,
                             itemBuilder: (context, index) {
                               final entrainement = entrainements[index];
@@ -152,6 +152,8 @@ class _HomepageState extends State<Homepage> {
                                   note: entrainement.note,
                                   poids: entrainement.poids,
                                   ispublic: entrainement.ispublic,
+                                  userId: userId,
+                                  idUserEntrainement: entrainement.userid,
                                 );
                               } else {
                                 return ContainerCardSport(
@@ -165,6 +167,8 @@ class _HomepageState extends State<Homepage> {
                                   note: entrainement.note,
                                   poids: entrainement.poids,
                                   ispublic: entrainement.ispublic,
+                                  userId: userId,
+                                  idUserEntrainement: entrainement.userid,
                                 );
                               }
                             },

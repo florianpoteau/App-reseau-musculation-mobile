@@ -14,6 +14,8 @@ class CardSeanceFiltre extends StatefulWidget {
   final String? exerciceGenre;
   final bool? ispublic;
   final int? idEntrainement;
+  final int? userId;
+  final int? idUserEntrainement;
 
   CardSeanceFiltre({
     required this.content,
@@ -28,6 +30,8 @@ class CardSeanceFiltre extends StatefulWidget {
     this.exerciceGenre,
     this.ispublic,
     this.idEntrainement,
+    this.userId,
+    this.idUserEntrainement,
   }) : super(key: key);
 
   @override
@@ -66,6 +70,8 @@ class _CardSeanceFiltreState extends State<CardSeanceFiltre> {
               exerciceGenre: widget.exerciceGenre,
               ispublic: widget.ispublic,
               idEntrainement: widget.idEntrainement,
+              userId: widget.userId,
+              idUserEntrainement: widget.idUserEntrainement,
             );
           },
         );

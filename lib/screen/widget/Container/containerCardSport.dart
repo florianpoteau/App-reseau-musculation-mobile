@@ -13,6 +13,8 @@ class ContainerCardSport extends StatelessWidget {
   final String? note;
   final int? poids;
   final bool? ispublic;
+  final int? userId;
+  final int? idUserEntrainement;
 
   ContainerCardSport({
     this.cardColor = const Color(0xFF0091AD),
@@ -25,6 +27,8 @@ class ContainerCardSport extends StatelessWidget {
     this.poids,
     this.ispublic,
     required this.idEntrainement,
+    this.userId,
+    this.idUserEntrainement,
   });
 
   IconData _getIconDataForGenre() {
@@ -61,16 +65,19 @@ class ContainerCardSport extends StatelessWidget {
   List<Widget> _buildCards(BuildContext context) {
     List<Widget> cards = [
       CardSeanceFiltre(
-          content: textContent,
-          iconData: _getIconDataForGenre(),
-          cardColor: cardColor,
-          serie: serie,
-          repetition: repetition,
-          note: note,
-          poids: poids,
-          exerciceGenre: exerciceGenre,
-          ispublic: ispublic,
-          idEntrainement: idEntrainement)
+        content: textContent,
+        iconData: _getIconDataForGenre(),
+        cardColor: cardColor,
+        serie: serie,
+        repetition: repetition,
+        note: note,
+        poids: poids,
+        exerciceGenre: exerciceGenre,
+        ispublic: ispublic,
+        idEntrainement: idEntrainement,
+        userId: userId,
+        idUserEntrainement: idUserEntrainement,
+      )
     ];
 
     if (selectedSport == 'Tout') {

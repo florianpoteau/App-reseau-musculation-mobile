@@ -13,6 +13,8 @@ class CardDetailsModale extends StatelessWidget {
   final String? exerciceGenre;
   final bool? ispublic;
   final int? idEntrainement;
+  final int? userId;
+  final int? idUserEntrainement;
 
   CardDetailsModale({
     required this.cardTitle,
@@ -24,10 +26,14 @@ class CardDetailsModale extends StatelessWidget {
     this.exerciceGenre,
     this.ispublic,
     this.idEntrainement,
+    this.userId,
+    this.idUserEntrainement,
   });
 
   @override
   Widget build(BuildContext context) {
+    print("idUserEntrainement: $idUserEntrainement");
+    print("userId: $userId");
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,36 +116,36 @@ class CardDetailsModale extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Modifier un entrainement avec son nom
-            TextButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return ModalEntrainement(
-                        idEntrainement: idEntrainement,
-                        serie: serie,
-                        poids: poids,
-                        repetition: repetition);
-                  },
-                );
-              },
-              child: Text('Modifier'),
-            ),
-            TextButton(
-              onPressed: () async {
-                // Appelez la fonction pour supprimer l'entraînement
-                try {
-                  FetchEntrainement.deleteEntrainement(idEntrainement);
-                  Navigator.pushNamed(context, CustomRouter.homepage);
-                } catch (e) {
-                  print(
-                      "Erreur lors de la suppression de l'entraînement : $e $idEntrainement");
-                }
-              },
-              child: Text('Supprimer'),
-            ),
-
+            if (idUserEntrainement == userId)
+              TextButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ModalEntrainement(
+                          idEntrainement: idEntrainement,
+                          serie: serie,
+                          poids: poids,
+                          repetition: repetition);
+                    },
+                  );
+                },
+                child: Text('Modifier'),
+              ),
+            if (idUserEntrainement == userId)
+              TextButton(
+                onPressed: () async {
+                  // Appelez la fonction pour supprimer l'entraînement
+                  try {
+                    FetchEntrainement.deleteEntrainement(idEntrainement);
+                    Navigator.pushNamed(context, CustomRouter.homepage);
+                  } catch (e) {
+                    print(
+                        "Erreur lors de la suppression de l'entraînement : $e $idEntrainement");
+                  }
+                },
+                child: Text('Supprimer'),
+              ),
             TextButton(
               child: Text('Fermer'),
               onPressed: () {

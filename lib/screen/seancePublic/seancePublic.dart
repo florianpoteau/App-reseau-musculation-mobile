@@ -5,6 +5,7 @@ import 'package:renconsport/screen/widget/Container/containerCardSport.dart';
 import 'package:renconsport/screen/widget/dropDown/filterDropDown.dart';
 import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
 import 'package:renconsport/services/Entrainements/fetchEntrainement.dart';
+import 'package:renconsport/services/authToken/getToken.dart';
 import 'package:renconsport/services/theme.dart';
 
 class SeancePublic extends StatefulWidget {
@@ -18,11 +19,24 @@ class _SeancePublicState extends State<SeancePublic> {
   String? _selectedSport = 'Tout';
   List<Entrainement> entrainements = [];
   bool isLoading = true;
+  String username = 'Chargement...';
+  int? userId;
 
   @override
   void initState() {
     super.initState();
+    _loadUsername();
     _loadEntrainement();
+  }
+
+  void _loadUsername() async {
+    final data = await GetToken.getToken();
+    setState(() {
+      username = data != null ? data['username'] : 'Utilisateur inconnu';
+      userId = data != null
+          ? data['id']
+          : null; // Récupération de l'ID de l'utilisateur
+    });
   }
 
 // Dans la méthode _loadEntrainement, après avoir obtenu les données
@@ -93,6 +107,8 @@ class _SeancePublicState extends State<SeancePublic> {
                                 repetition: entrainement.repetition,
                                 note: entrainement.note,
                                 poids: entrainement.poids,
+                                idUserEntrainement: entrainement.userid,
+                                userId: userId,
                               );
                             },
                           )),
