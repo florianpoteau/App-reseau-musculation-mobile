@@ -74,24 +74,6 @@ class _ProfilPageState extends State<ProfilPage> {
                             ),
                           ),
                           SizedBox(height: 20),
-                          Container(
-                            height: 100,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Note :',
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                  border: InputBorder.none,
-                                ),
-                                maxLines: 3,
-                              ),
-                            ),
-                          ),
                           SizedBox(
                             height: 50,
                           ),
